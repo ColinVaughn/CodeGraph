@@ -1,0 +1,97 @@
+[workspace]
+resolver = "2"
+members = ["crates/*", "bin/*"]
+
+[workspace.package]
+edition = "2021"
+version = "0.1.0"
+license = "MIT"
+rust-version = "1.95"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+# `float_roundtrip`: parse floats with full precision so a value survives a
+# serialize→deserialize round-trip exactly. Load-bearing: manifest `mtime` (f64)
+# and graph.json weights/confidence_scores must be byte-stable across load/save
+# (committable artifacts, determinism). Without it serde_json's fast parser can
+# be off by ~1 ULP, which broke `manifest::save_load_round_trip` intermittently.
+serde_json = { version = "1", features = ["float_roundtrip"] }
+thiserror = "2"
+regex = "1"
+unicode-normalization = "0.1"
+caseless = "0.2"
+codegraph-core = { path = "crates/codegraph-core" }
+codegraph-extract = { path = "crates/codegraph-extract" }
+codegraph-detect = { path = "crates/codegraph-detect" }
+codegraph-graph = { path = "crates/codegraph-graph" }
+codegraph-output = { path = "crates/codegraph-output" }
+codegraph-report = { path = "crates/codegraph-report" }
+codegraph-query = { path = "crates/codegraph-query" }
+codegraph-llm = { path = "crates/codegraph-llm" }
+codegraph-semantic = { path = "crates/codegraph-semantic" }
+codegraph-incremental = { path = "crates/codegraph-incremental" }
+codegraph-prs = { path = "crates/codegraph-prs" }
+codegraph-server = { path = "crates/codegraph-server" }
+codegraph-ingest = { path = "crates/codegraph-ingest" }
+codegraph-skillgen = { path = "crates/codegraph-skillgen" }
+codegraph-workspace = { path = "crates/codegraph-workspace" }
+clap = { version = "4", features = ["derive"] }
+anyhow = "1"
+rayon = "1"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+axum = "0.7"
+tower = "0.5"
+futures-util = "0.3"
+getrandom = "0.2"
+async-trait = "0.1"
+wiremock = "0.6"
+assert_cmd = "2"
+tree-sitter = "0.25"
+tree-sitter-python = "0.23"
+tree-sitter-javascript = "0.23"
+tree-sitter-typescript = "0.23"
+tree-sitter-go = "0.23"
+tree-sitter-rust = "0.23"
+tree-sitter-java = "0.23"
+tree-sitter-c-sharp = "0.23"
+tree-sitter-kotlin-ng = "1.1"
+tree-sitter-swift = "0.7"
+tree-sitter-c = "0.24"
+tree-sitter-cpp = "0.23"
+tree-sitter-json = "0.24"
+tree-sitter-yaml = "0.7"
+tree-sitter-hcl = "1.1"
+tree-sitter-sequel = "0.3"
+tree-sitter-ruby = "0.23"
+tree-sitter-php = "0.24"
+tree-sitter-lua = "0.5"
+tree-sitter-bash = "0.25"
+tree-sitter-powershell = "0.26"
+tree-sitter-scala = "0.26"
+tree-sitter-elixir = "0.3"
+tree-sitter-julia = "0.23"
+tree-sitter-dart = "0.2"
+tree-sitter-zig = "1.1"
+tree-sitter-groovy = "0.1"
+tree-sitter-objc = "3.0"
+tree-sitter-verilog = "1.0"
+tree-sitter-fortran = "0.6"
+petgraph = "0.8"
+notify = "6"
+redis = { version = "0.27", default-features = false }
+calamine = "0.26"
+rust_xlsxwriter = "0.79"
+ignore = "0.4"
+toml = "0.8"
+glob = "0.3"
+roxmltree = "0.20"
+blake3 = "1"
+base64 = "0.22"
+strsim = "0.11"
+tiktoken-rs = "0.6"
+sha2 = "0.10"
+hmac = "0.12"
+tempfile = "3"
+criterion = "0.5"
+proptest = "1"
