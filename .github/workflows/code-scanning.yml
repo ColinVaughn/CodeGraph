@@ -1,0 +1,39 @@
+name: Code scanning
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  clippy:
+    name: clippy (SARIF)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.95.0
+        with:
+          components: clippy
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: clippy-sarif,sarif-fmt
+      # Collect clippy findings as SARIF for the GitHub Security tab. This does not
+      # gate the build (the lint job already enforces -D warnings); it surfaces
+      # findings over time in code scanning.
+      - name: clippy -> SARIF
+        run: cargo clippy --workspace --all-targets --all-features --message-format=json
+          | clippy-sarif | tee results.sarif | sarif-fmt
+        continue-on-error: true
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
+          category: clippy
