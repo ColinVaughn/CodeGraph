@@ -714,6 +714,7 @@ version = "0.1.0"
 dependencies = [
  "serde_json",
  "tempfile",
+ "toml_edit",
 ]
 
 [[package]]

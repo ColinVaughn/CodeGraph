@@ -16,6 +16,15 @@ pub(crate) fn run_install(platform: &str) -> Result<()> {
     for path in &written {
         println!("  {}", path.display());
     }
+    if p == Platform::Codex {
+        // Codex only loads project-scoped `.codex/` config + hooks for trusted
+        // projects, so the MCP server / hook are inert until the user trusts it.
+        println!(
+            "\nNote: trust this folder in Codex so the MCP server and SessionStart \
+             hook take effect\n(Codex loads project `.codex/` config only for trusted \
+             projects). Build the graph\nfirst with `codegraph extract .`."
+        );
+    }
     Ok(())
 }
 

@@ -15,6 +15,7 @@
 //! install`, C1d). Drift-guarding the rendered artifacts lives in [`drift`].
 #![forbid(unsafe_code)]
 
+pub mod codex_config;
 pub mod drift;
 pub mod settings_hooks;
 
@@ -75,6 +76,7 @@ extract .` / `codegraph update <files>`.\n\
 pub enum Platform {
     Claude,
     Agents,
+    Codex,
     Gemini,
     Cursor,
     Copilot,
@@ -82,13 +84,15 @@ pub enum Platform {
 }
 
 impl Platform {
-    /// Parse a platform name (case-insensitive). `codex`/`opencode` map onto the
-    /// generic `Agents` platform — both read `AGENTS.md`, so they need no
-    /// dedicated variant.
+    /// Parse a platform name (case-insensitive). `codex` is its own platform: it
+    /// reads `AGENTS.md` like the generic `Agents`, but a full install also wires
+    /// its native MCP server config and lifecycle hook (see [`crate::codex_config`]).
+    /// `opencode` stays on the plain `Agents` variant (AGENTS.md only).
     pub fn parse(s: &str) -> Option<Platform> {
         match s.to_lowercase().as_str() {
             "claude" => Some(Platform::Claude),
-            "agents" | "agent" | "codex" | "opencode" => Some(Platform::Agents),
+            "agents" | "agent" | "opencode" => Some(Platform::Agents),
+            "codex" => Some(Platform::Codex),
             "gemini" => Some(Platform::Gemini),
             "cursor" => Some(Platform::Cursor),
             "copilot" | "github-copilot" => Some(Platform::Copilot),
@@ -98,10 +102,11 @@ impl Platform {
     }
 
     /// All platforms (for `uninstall --all`).
-    pub fn all() -> [Platform; 6] {
+    pub fn all() -> [Platform; 7] {
         [
             Platform::Claude,
             Platform::Agents,
+            Platform::Codex,
             Platform::Gemini,
             Platform::Cursor,
             Platform::Copilot,
@@ -113,6 +118,7 @@ impl Platform {
         match self {
             Platform::Claude => "Claude Code",
             Platform::Agents => "your AI agent",
+            Platform::Codex => "Codex",
             Platform::Gemini => "Gemini",
             Platform::Cursor => "Cursor",
             Platform::Copilot => "GitHub Copilot",
@@ -125,6 +131,7 @@ impl Platform {
         match self {
             Platform::Claude => "claude",
             Platform::Agents => "agents",
+            Platform::Codex => "codex",
             Platform::Gemini => "gemini",
             Platform::Cursor => "cursor",
             Platform::Copilot => "copilot",
@@ -138,6 +145,7 @@ impl Platform {
             Platform::Claude => Some(".claude/skills/codegraph/SKILL.md"),
             // The rest consume a single always-on instructions file directly.
             Platform::Agents
+            | Platform::Codex
             | Platform::Gemini
             | Platform::Cursor
             | Platform::Copilot
@@ -149,7 +157,8 @@ impl Platform {
     fn always_on_file(self) -> &'static str {
         match self {
             Platform::Claude => "CLAUDE.md",
-            Platform::Agents => "AGENTS.md",
+            // Codex reads AGENTS.md too, like the generic Agents platform.
+            Platform::Agents | Platform::Codex => "AGENTS.md",
             Platform::Gemini => "GEMINI.md",
             Platform::Cursor => ".cursorrules",
             Platform::Copilot => ".github/copilot-instructions.md",
@@ -245,6 +254,12 @@ pub fn install(platform: Platform, repo_root: &Path) -> std::io::Result<Vec<Path
     if platform == Platform::Claude {
         written.push(settings_hooks::install_settings_hook(repo_root)?);
     }
+    // Codex natively supports MCP servers and lifecycle hooks: register the MCP
+    // server (so `serve` is wired without manual config) and a PreToolUse hook
+    // (the same "query the graph first" nudge) under the repo's `.codex/`.
+    if platform == Platform::Codex {
+        written.extend(codex_config::install(repo_root)?);
+    }
     Ok(written)
 }
 
@@ -272,6 +287,9 @@ pub fn uninstall(platform: Platform, repo_root: &Path) -> std::io::Result<()> {
     }
     if platform == Platform::Claude {
         settings_hooks::uninstall_settings_hook(repo_root)?;
+    }
+    if platform == Platform::Codex {
+        codex_config::uninstall(repo_root)?;
     }
     Ok(())
 }
@@ -367,12 +385,53 @@ mod tests {
     }
 
     #[test]
-    fn parse_aliases_codex_and_opencode_to_agents() {
-        assert_eq!(Platform::parse("codex"), Some(Platform::Agents));
+    fn parse_codex_is_its_own_platform() {
+        // `codex` is distinct (it gets the full MCP + hook install); `opencode`
+        // stays on the plain AGENTS.md-only `Agents` platform.
+        assert_eq!(Platform::parse("codex"), Some(Platform::Codex));
         assert_eq!(Platform::parse("opencode"), Some(Platform::Agents));
+        assert_ne!(Platform::parse("codex"), Platform::parse("opencode"));
         assert_eq!(Platform::parse("cursor"), Some(Platform::Cursor));
         assert_eq!(Platform::parse("kilocode"), Some(Platform::Kilo));
         assert_eq!(Platform::parse("nope"), None);
+    }
+
+    #[test]
+    fn install_codex_is_a_full_install() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        let written = install(Platform::Codex, root).unwrap();
+        // AGENTS.md always-on block (like the generic Agents platform)...
+        let agents = std::fs::read_to_string(root.join("AGENTS.md")).unwrap();
+        assert!(agents.contains("## CodeGraph"), "{agents}");
+        // ...plus the Codex-native MCP server, hook, and helper script.
+        assert!(root.join(".codex/config.toml").exists());
+        assert!(root.join(".codex/hooks.json").exists());
+        assert!(root.join(".codex/codegraph-hook.py").exists());
+        assert!(
+            written.iter().any(|p| p.ends_with("config.toml"))
+                && written.iter().any(|p| p.ends_with("hooks.json")),
+            "returns the paths it wrote: {written:?}"
+        );
+    }
+
+    #[test]
+    fn install_uninstall_round_trip_codex() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        std::fs::write(root.join("AGENTS.md"), "# Repo\n\nKeep this.\n").unwrap();
+
+        install(Platform::Codex, root).unwrap();
+        uninstall(Platform::Codex, root).unwrap();
+
+        // Foreign AGENTS.md prose survives; our block is gone.
+        let after = std::fs::read_to_string(root.join("AGENTS.md")).unwrap();
+        assert!(!after.contains("## CodeGraph"), "block removed: {after}");
+        assert!(after.contains("Keep this."), "foreign content survives");
+        // All Codex-native artifacts are gone.
+        assert!(!root.join(".codex/config.toml").exists());
+        assert!(!root.join(".codex/hooks.json").exists());
+        assert!(!root.join(".codex/codegraph-hook.py").exists());
     }
 
     #[test]

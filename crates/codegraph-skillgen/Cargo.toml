@@ -8,6 +8,7 @@ description = "Generate + install the CodeGraph 'skill' that drives a host AI as
 
 [dependencies]
 serde_json = { workspace = true }
+toml_edit = { workspace = true }
 
 [dev-dependencies]
 tempfile = { workspace = true }

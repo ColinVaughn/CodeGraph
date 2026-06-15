@@ -84,6 +84,10 @@ calamine = "0.26"
 rust_xlsxwriter = "0.79"
 ignore = "0.4"
 toml = "0.8"
+# Format-preserving TOML editor for merging our `[mcp_servers.codegraph]` block
+# into a user's `.codex/config.toml` without clobbering their other entries.
+# Already in the tree (a `toml` 0.8 dependency), so this pins no new crate.
+toml_edit = "0.22"
 glob = "0.3"
 roxmltree = "0.20"
 blake3 = "1"

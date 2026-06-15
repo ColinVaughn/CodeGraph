@@ -59,7 +59,8 @@ fn settings_path(repo_root: &Path) -> PathBuf {
 }
 
 /// Parse the existing settings, treating a missing or corrupt file as empty.
-fn load_settings(path: &Path) -> Map<String, Value> {
+/// Crate-visible so the Codex `hooks.json` writer can reuse it (same schema).
+pub(crate) fn load_settings(path: &Path) -> Map<String, Value> {
     std::fs::read_to_string(path)
         .ok()
         .and_then(|t| serde_json::from_str::<Value>(&t).ok())
@@ -82,7 +83,7 @@ fn pretooluse_without_ours(settings: &Map<String, Value>) -> Vec<Value> {
         .unwrap_or_default()
 }
 
-fn write_settings(path: &Path, settings: &Map<String, Value>) -> std::io::Result<()> {
+pub(crate) fn write_settings(path: &Path, settings: &Map<String, Value>) -> std::io::Result<()> {
     if let Some(parent) = path.parent() {
         std::fs::create_dir_all(parent)?;
     }

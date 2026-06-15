@@ -522,6 +522,49 @@ fn install_then_uninstall_skill() {
 }
 
 #[test]
+fn install_then_uninstall_codex() {
+    let dir = tempfile::tempdir().unwrap();
+    let root = dir.path();
+    Command::cargo_bin("codegraph")
+        .unwrap()
+        .current_dir(root)
+        .args(["install", "codex"])
+        .assert()
+        .success();
+    // AGENTS.md always-on block...
+    let agents = fs::read_to_string(root.join("AGENTS.md")).unwrap();
+    assert!(agents.contains("## CodeGraph"), "always-on: {agents}");
+    // ...plus the Codex-native MCP server, hook, and helper script.
+    let config = fs::read_to_string(root.join(".codex/config.toml")).unwrap();
+    assert!(
+        config.contains("[mcp_servers.codegraph]") && config.contains("serve"),
+        "mcp server: {config}"
+    );
+    let hooks = fs::read_to_string(root.join(".codex/hooks.json")).unwrap();
+    assert!(
+        hooks.contains("SessionStart") && hooks.contains("codegraph-hook.py"),
+        "hook: {hooks}"
+    );
+    assert!(root.join(".codex/codegraph-hook.py").exists());
+
+    Command::cargo_bin("codegraph")
+        .unwrap()
+        .current_dir(root)
+        .args(["uninstall", "codex"])
+        .assert()
+        .success();
+    assert!(
+        !root.join(".codex/config.toml").exists(),
+        "mcp config removed"
+    );
+    assert!(!root.join(".codex/hooks.json").exists(), "hooks removed");
+    assert!(
+        !root.join(".codex/codegraph-hook.py").exists(),
+        "script removed"
+    );
+}
+
+#[test]
 fn serve_answers_mcp_over_stdio() {
     let dir = tempfile::tempdir().unwrap();
     let root = dir.path();
