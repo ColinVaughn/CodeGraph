@@ -1,0 +1,33 @@
+### CodeGraph
+
+**Getting started**
+- [Home](Home)
+- [Installation](Installation)
+- [Quickstart](Quickstart)
+
+**Concepts**
+- [Architecture](Architecture)
+- [Languages](Languages)
+
+**Using CodeGraph**
+- [Commands](Commands)
+- [Extraction](Extraction)
+- [Querying](Querying)
+- [Analysis and Reports](Analysis-and-Reports)
+- [Output Formats](Output-Formats)
+- [Visualizations](Visualizations)
+
+**Integrations**
+- [MCP Server](MCP-Server)
+- [Assistant Integration](Assistant-Integration)
+- [Ingestion](Ingestion)
+- [Semantic Analysis](Semantic-Analysis)
+
+**Scaling**
+- [Workspaces and Federation](Workspaces-and-Federation)
+- [Incremental Updates](Incremental-Updates)
+- [PR Dashboard](PR-Dashboard)
+
+**Reference**
+- [Configuration](Configuration)
+- [Development](Development)
