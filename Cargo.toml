@@ -5,7 +5,7 @@ members = ["crates/*", "bin/*"]
 [workspace.package]
 edition = "2021"
 version = "0.1.0"
-license = "MIT"
+license = "AGPL-3.0-or-later"
 rust-version = "1.95"
 
 [workspace.dependencies]

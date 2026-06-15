@@ -28,7 +28,7 @@ All notable changes to CodeGraph are documented here. The format is based on
 - **DOT/Graphviz exporter** — `graph.dot` is now written by every `extract` (and via `export dot`).
 - **Broader skill installers:** `cursor`, `copilot`, and `kilo` join `claude`/`agents`/`gemini`;
   `codex`/`opencode` alias onto the `AGENTS.md` installer.
-- User-facing `README.md`, `LICENSE` (MIT), and this changelog.
+- User-facing `README.md`, `LICENSE` (AGPL-3.0-or-later), and this changelog.
 - `release` GitHub Actions workflow that builds and attaches prebuilt `codegraph` binaries
   for Linux, macOS, and Windows to each tagged release.
 - `query --dfs` — expand the query subgraph depth-first instead of breadth-first (the
