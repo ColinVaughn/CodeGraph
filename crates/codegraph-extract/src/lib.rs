@@ -235,7 +235,10 @@ mod tests {
     /// Every extension `codegraph-detect` classifies as `Code` must have an
     /// `extract_source` arm — otherwise those files are counted into corpus stats
     /// and then silently produce zero nodes (the detect/extract "drift" bug).
-    /// Requires the default feature set (all `lang-*` on).
+    /// Requires the default feature set (all `lang-*` on), so it is skipped in
+    /// the per-language `--no-default-features --features lang-X` CI builds where
+    /// only one extractor is compiled in.
+    #[cfg(feature = "default")]
     #[test]
     fn every_detected_code_extension_has_an_extractor() {
         let orphans: Vec<&str> = codegraph_detect::file_type::CODE_EXTENSIONS
