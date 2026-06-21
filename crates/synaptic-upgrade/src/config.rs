@@ -23,7 +23,9 @@ impl UpdateConfig {
     /// Load the config, returning the default (disabled) when the file is absent.
     pub fn load(path: &Path) -> Result<Self> {
         match std::fs::read_to_string(path) {
-            Ok(text) => toml::from_str(&text).with_context(|| format!("parsing {}", path.display())),
+            Ok(text) => {
+                toml::from_str(&text).with_context(|| format!("parsing {}", path.display()))
+            }
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(Self::default()),
             Err(e) => Err(e).with_context(|| format!("reading {}", path.display())),
         }

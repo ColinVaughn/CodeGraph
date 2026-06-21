@@ -74,7 +74,9 @@ pub fn latest_release() -> Result<Release> {
         }
     }
     let resp = req.send().context("requesting latest release")?;
-    let resp = resp.error_for_status().context("GitHub returned an error")?;
+    let resp = resp
+        .error_for_status()
+        .context("GitHub returned an error")?;
     let body = resp.text().context("reading release body")?;
     parse_latest(&body)
 }
@@ -100,7 +102,11 @@ mod tests {
         assert_eq!(r.version, "v0.3.1");
         assert_eq!(r.notes, "Changes - fix things");
         assert_eq!(r.assets.len(), 2);
-        let a = r.assets.iter().find(|a| a.name.ends_with(".tar.gz")).unwrap();
+        let a = r
+            .assets
+            .iter()
+            .find(|a| a.name.ends_with(".tar.gz"))
+            .unwrap();
         assert_eq!(a.url, "https://example.com/a.tar.gz");
     }
 }

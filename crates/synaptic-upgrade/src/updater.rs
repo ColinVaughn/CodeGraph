@@ -61,7 +61,8 @@ fn extract_from_tar_gz(archive: &Path, want: &str, dest_dir: &Path) -> Result<Pa
         let path = e.path().context("entry path")?.into_owned();
         if path.file_name().and_then(|s| s.to_str()) == Some(want) {
             let out = dest_dir.join(want);
-            e.unpack(&out).with_context(|| format!("unpacking {want}"))?;
+            e.unpack(&out)
+                .with_context(|| format!("unpacking {want}"))?;
             return Ok(out);
         }
     }
