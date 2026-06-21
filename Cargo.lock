@@ -3074,6 +3074,7 @@ dependencies = [
  "synaptic-skillgen",
  "synaptic-sqlaudit",
  "synaptic-synql",
+ "synaptic-upgrade",
  "synaptic-workspace",
  "tempfile",
  "tokio",
