@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>document.documentElement.classList.add('js');</script>
+  <title>Why it works — Synaptic</title>
+  <meta name="description" content="How Synaptic earns the answer: how the graph is built, the token-economy measurements, hand-labeled accuracy against a ground-truth corpus, extraction throughput at scale, and honest prediction calibration." />
+  <meta name="theme-color" content="#07070e" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/synaptic.css" />
+</head>
+<body>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a class="brand" href="index.html" aria-label="Synaptic home">
+        <img class="brand__mark" src="assets/img/logo.svg" alt="" width="28" height="28" />
+        <span class="brand__word">synaptic</span>
+      </a>
+      <nav class="nav__links" id="nav-links" aria-label="Primary">
+        <a href="features.html">Features</a>
+        <a href="why.html" aria-current="page">Why it works</a>
+        <a href="https://github.com/ColinVaughn/Synaptic/wiki">Docs <span class="ext">&#8599;</span></a>
+        <a href="https://github.com/ColinVaughn/Synaptic">GitHub <span class="ext">&#8599;</span></a>
+        <a class="nav__cta" href="https://discord.gg/ytX7R2PbNz">Discord</a>
+      </nav>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <header class="page-head">
+      <div class="wrap">
+        <span class="eyebrow">// earn the answer</span>
+        <h1 class="display">Why it works</h1>
+        <p class="lead">Every number here is reproducible. The relationships Synaptic extracts are validated against hand-labeled ground truth — and where the data is unflattering, it stays in.</p>
+      </div>
+    </header>
+
+    <!-- how it's built -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">// how the graph is built</span>
+          <h2 class="h2">Structure, computed for you.</h2>
+        </div>
+        <div class="cards">
+          <article class="card reveal">
+            <h3 class="h3">Parsed, not guessed</h3>
+            <p class="card__body">tree-sitter parses 30+ languages into concrete syntax, and Synaptic resolves call, import, and reference edges from it — then clusters the graph into communities so god nodes, surprising connections, and import cycles surface on their own.</p>
+          </article>
+          <article class="card reveal" data-delay="1">
+            <h3 class="h3">Confidence you can audit</h3>
+            <p class="card__body">Every inferred relationship is tagged <code>EXTRACTED</code>, <code>INFERRED</code>, or <code>AMBIGUOUS</code>. A "0 dependents" answer carries a caveat when a symbol is reachable only through dynamic dispatch, so absence of evidence is never dressed up as proof.</p>
+          </article>
+          <article class="card reveal" data-delay="2">
+            <h3 class="h3">Offline by default</h3>
+            <p class="card__body">A code-only corpus never makes a network call. The only feature that needs an API key is the optional semantic pass over docs and papers — everything structural runs locally.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- token economy -->
+    <section class="section" id="economy">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">// token economy</span>
+          <h2 class="h2">Read a small answer, not the whole codebase.</h2>
+          <p class="lead">Querying a compact graph costs a fraction of feeding raw files to an LLM. Measured on Synaptic's own source: 199 Rust files, 56,408 lines, 510,966 cl100k tokens.</p>
+        </div>
+
+        <div class="tokens__grid">
+          <div class="bars reveal" data-inview>
+            <div class="bar__row">
+              <div class="bar__label"><span>Reading the source files</span><b>60,900</b></div>
+              <div class="bar__track"><div class="bar__fill bar__fill--base" style="--w:100%"></div></div>
+            </div>
+            <div class="bar__row">
+              <div class="bar__label"><span>One Synaptic query</span><b>1,950</b></div>
+              <div class="bar__track"><div class="bar__fill bar__fill--syn" style="--w:3.2%"></div></div>
+            </div>
+          </div>
+          <div class="tokens__stat reveal" data-delay="1">
+            <div class="tokens__big signal-text">31<span class="x">&times;</span></div>
+            <p class="tokens__cap">fewer tokens overall — and a query response stays small no matter how big the repo gets, so the ratio grows with the codebase.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap reveal mt-l">
+          <table class="data">
+            <thead>
+              <tr><th>Question</th><th class="num">Query response</th><th class="num">Read the files</th><th class="num">Fewer tokens</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>http request handling</td><td class="num">1,804</td><td class="num">48,803</td><td class="num">27&times;</td></tr>
+              <tr><td>session create / reap</td><td class="num">1,974</td><td class="num">65,578</td><td class="num">33&times;</td></tr>
+              <tr><td>query_graph subgraph</td><td class="num">2,011</td><td class="num">53,759</td><td class="num">27&times;</td></tr>
+              <tr><td>extraction walker</td><td class="num">1,977</td><td class="num">70,443</td><td class="num">36&times;</td></tr>
+              <tr><td>PR fetch / rank</td><td class="num">1,926</td><td class="num">73,231</td><td class="num">38&times;</td></tr>
+              <tr><td>incremental merge</td><td class="num">2,010</td><td class="num">53,440</td><td class="num">27&times;</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="repro reveal">Exact cl100k_base counts via <code>cargo run -p synaptic-server --example tokcount</code>. The baseline is the unique source files the result's nodes live in — the conservative grep-then-read case. The <code>graph.json</code> index itself is large because it encodes every symbol and edge; you never load it into context, you query it and get back only the slice.</p>
+      </div>
+    </section>
+
+    <!-- accuracy -->
+    <section class="section" id="accuracy">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">// accuracy</span>
+          <h2 class="h2">Validated against hand-labeled ground truth.</h2>
+          <p class="lead">A corpus of mini-repos whose true call edges, test linkages, blast radii (including distractors that must <em>not</em> be flagged), and cross-language couplings are written out by hand. A preflight fails the run if any labeled symbol doesn't resolve — a dropped node becomes a loud failure, not a quietly smaller denominator.</p>
+        </div>
+
+        <div class="table-wrap reveal">
+          <table class="data">
+            <thead>
+              <tr><th>Fixture</th><th>Family</th><th class="num">Call P/R/F1</th><th class="num">Aff-test rec</th><th class="num">Blast rec/excl/size</th><th class="num">Cross P/R/F1</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="repo">systems-rust</span></td><td class="muted">systems-rust</td><td class="num">100/50/66</td><td class="num">&mdash;</td><td class="num">100% / 100% / 1.0</td><td class="num">&mdash;</td></tr>
+              <tr><td><span class="repo">scripting-python</span></td><td class="muted">scripting-python</td><td class="num">100/100/100</td><td class="num">100%</td><td class="num">100% / 100% / 2.0</td><td class="num">&mdash;</td></tr>
+              <tr><td><span class="repo">web-ts</span></td><td class="muted">web-ts</td><td class="num">100/100/100</td><td class="num">&mdash;</td><td class="num">100% / 100% / 1.0</td><td class="num">&mdash;</td></tr>
+              <tr><td><span class="repo">oo-java</span></td><td class="muted">oo-java</td><td class="num">100/100/100</td><td class="num">&mdash;</td><td class="num">100% / 100% / 1.0</td><td class="num">&mdash;</td></tr>
+              <tr><td><span class="repo">systems-go</span></td><td class="muted">systems-go</td><td class="num">100/100/100</td><td class="num">&mdash;</td><td class="num">100% / 100% / 1.0</td><td class="num">&mdash;</td></tr>
+              <tr><td><span class="repo">deep-python</span></td><td class="muted">scripting-python</td><td class="num">100/100/100</td><td class="num">100%</td><td class="num">100% / 100% / 3.0</td><td class="num">&mdash;</td></tr>
+              <tr><td><span class="repo">cross-lang-ts-rust</span></td><td class="muted">cross-lang</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">100/100/100</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout reveal">
+          <p>Across 7 fixtures / 6 language families / 26 labeled symbols (all resolved): pooled call edges <b>precision 100% / recall 93% / F1 96%</b>; blast-radius <b>recall 100% with 0 distractors leaked</b>; affected-test <b>recall 100%</b> with the one labeled unrelated test correctly not selected; cross-language <b>precision 100% / recall 100%</b>.</p>
+        </div>
+
+        <p class="row__lead reveal" style="max-width:62ch">Reading it honestly: the <b style="color:var(--text)">50% recall on Rust is real and expected</b> — Rust call resolution is intra-file, so a module-qualified cross-file call is a true miss. Cross-file reachability is still preserved through <code>imports</code> edges, which is why blast-radius recall stays 100%. The corpus is intentionally small and hand-verified: it validates extraction <em>correctness</em> on representative shapes, not internet-scale coverage.</p>
+      </div>
+    </section>
+
+    <!-- scale -->
+    <section class="section" id="scale">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">// scale</span>
+          <h2 class="h2">It scales with content, not against it.</h2>
+          <p class="lead">Extraction throughput across real OSS repos, each cloned at a pinned SHA, median of 3 reps. Cold clears the AST cache; warm is cache-hot; incr re-extracts a single file. Measured on Windows / x86_64 / 16 logical CPUs.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table class="data">
+            <thead>
+              <tr><th>Repo</th><th>Tier</th><th class="num">Files</th><th class="num">Nodes</th><th class="num">Edges</th><th class="num">Cold (s)</th><th class="num">Warm (s)</th><th class="num">Incr (s)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="repo">memchr</span></td><td class="muted">small</td><td class="num">75</td><td class="num">3,849</td><td class="num">13,592</td><td class="num">12.5</td><td class="num">7.5</td><td class="num">4.3</td></tr>
+              <tr><td><span class="repo">click</span></td><td class="muted">medium</td><td class="num">112</td><td class="num">2,189</td><td class="num">3,475</td><td class="num">2.4</td><td class="num">1.7</td><td class="num">0.8</td></tr>
+              <tr><td><span class="repo">p-map</span></td><td class="muted">small</td><td class="num">10</td><td class="num">85</td><td class="num">83</td><td class="num">0.07</td><td class="num">0.04</td><td class="num">0.04</td></tr>
+              <tr><td><span class="repo">cobra</span></td><td class="muted">medium</td><td class="num">55</td><td class="num">846</td><td class="num">2,362</td><td class="num">1.1</td><td class="num">0.7</td><td class="num">0.4</td></tr>
+              <tr><td><span class="repo">axum</span></td><td class="muted">large</td><td class="num">348</td><td class="num">3,656</td><td class="num">9,510</td><td class="num">4.7</td><td class="num">3.6</td><td class="num">3.5</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="repro reveal">Absolute times are machine-dependent; the reproducible signals are the cold&rarr;warm ratio (~1.4&ndash;2&times;, the Rust AST cache removing re-parsing) and that throughput tracks repo content rather than collapsing on the large tier. <code>memchr</code> is slow per-file on purpose to show it: macro-heavy and edge-dense (13.6k edges over 75 files), which the benchmark surfaces rather than hides.</p>
+      </div>
+    </section>
+
+    <!-- calibration -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">// calibration</span>
+          <h2 class="h2">When the metric says we're wrong, we publish it.</h2>
+        </div>
+        <p class="row__lead reveal" style="max-width:64ch">The change-forecast layer attaches a confidence to each predicted co-change. <code>synaptic eval calibrate</code> measures whether that confidence is meaningful — a reliability table, a Brier score, the Brier skill score against an always-guess-the-base-rate baseline, and expected calibration error.</p>
+        <div class="callout reveal">
+          <p>On this repo's own squash-heavy, synthetic history the skill score is <b>negative</b> — co-change prediction there is worse than guessing the base rate, because squashed commits touch many files at once and inflate apparent co-change. That is the metric working: it refuses to dress up a predictor that is miscalibrated on this history. Confidence is a per-repo property — run it on yours.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta">
+      <div class="cta__glow"></div>
+      <div class="wrap">
+        <h2 class="cta__title reveal">Run it on your own repo.</h2>
+        <div class="cta__row reveal" data-delay="1">
+          <a class="btn btn--primary" href="index.html#install">Install <span class="arrow">&rarr;</span></a>
+          <a class="btn btn--ghost" href="https://github.com/ColinVaughn/Synaptic/blob/master/BENCHMARKS.md">Read BENCHMARKS.md</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__grid">
+        <div class="foot__brand">
+          <a class="brand" href="index.html" aria-label="Synaptic home">
+            <img class="brand__mark" src="assets/img/logo.svg" alt="" width="28" height="28" />
+            <span class="brand__word">synaptic</span>
+          </a>
+          <p>A persistent, queryable knowledge graph for any codebase. Built in Rust with tree-sitter.</p>
+        </div>
+        <div class="foot__col">
+          <h4>Product</h4>
+          <a href="features.html">Features</a>
+          <a href="why.html">Why it works</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/releases">Releases</a>
+        </div>
+        <div class="foot__col">
+          <h4>Docs</h4>
+          <a href="https://github.com/ColinVaughn/Synaptic/wiki">Wiki</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/wiki/Quickstart">Quickstart</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/wiki/MCP-Server">MCP server</a>
+        </div>
+        <div class="foot__col">
+          <h4>Community</h4>
+          <a href="https://github.com/ColinVaughn/Synaptic">GitHub</a>
+          <a href="https://discord.gg/ytX7R2PbNz">Discord</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/blob/master/LICENSE">License</a>
+        </div>
+      </div>
+      <div class="foot__meta">
+        <span>&copy; <span id="year">2026</span> Synaptic &middot; AGPL-3.0-or-later</span>
+        <span>Not affiliated with any other project. Built with <a href="https://tree-sitter.github.io/">tree-sitter</a>.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js" defer></script>
+</body>
+</html>

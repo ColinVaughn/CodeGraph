@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>document.documentElement.classList.add('js');</script>
+  <title>Features — Synaptic</title>
+  <meta name="description" content="Everything Synaptic does: extraction, structural search (SYNQL), reverse impact and speculative execution, dynamic-dispatch awareness, safe refactor, time-travel diff, SQL audit, federation, and a 28-tool MCP server." />
+  <meta name="theme-color" content="#07070e" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/synaptic.css" />
+</head>
+<body>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a class="brand" href="index.html" aria-label="Synaptic home">
+        <img class="brand__mark" src="assets/img/logo.svg" alt="" width="28" height="28" />
+        <span class="brand__word">synaptic</span>
+      </a>
+      <nav class="nav__links" id="nav-links" aria-label="Primary">
+        <a href="features.html" aria-current="page">Features</a>
+        <a href="why.html">Why it works</a>
+        <a href="https://github.com/ColinVaughn/Synaptic/wiki">Docs <span class="ext">&#8599;</span></a>
+        <a href="https://github.com/ColinVaughn/Synaptic">GitHub <span class="ext">&#8599;</span></a>
+        <a class="nav__cta" href="https://discord.gg/ytX7R2PbNz">Discord</a>
+      </nav>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <header class="page-head">
+      <div class="wrap">
+        <span class="eyebrow">// the full surface</span>
+        <h1 class="display">Everything Synaptic does</h1>
+        <p class="lead">One static Rust binary builds the graph, then answers structural and architectural questions over it — offline by default, with every command also exposed to an AI assistant over MCP.</p>
+      </div>
+    </header>
+
+    <section class="section section--tight">
+      <div class="wrap rows">
+
+        <article class="row reveal">
+          <div>
+            <h2 class="row__title">Extraction &amp; the graph</h2>
+            <p class="row__lead">Turn a folder into a knowledge graph — symbols and relationships, clustered into communities.</p>
+          </div>
+          <div class="row__body">
+            <div class="row__cmd"><span class="p">$</span> synaptic extract .</div>
+            <p>Parses 30+ languages with tree-sitter, resolves call/import/reference edges, and clusters the result into communities so the structurally important pieces surface on their own. A code-only corpus never makes a network call.</p>
+            <p>Incremental rebuilds, file watching, and git hooks keep the graph current as you work; an on-disk AST cache makes re-runs fast.</p>
+            <div class="taglist"><span class="tag">--directed</span><span class="tag">--obsidian</span><span class="tag">--wiki</span><span class="tag">--semantic</span><span class="tag">update</span><span class="tag">watch</span></div>
+          </div>
+        </article>
+
+        <article class="row reveal">
+          <div>
+            <h2 class="row__title">Query &amp; structural search</h2>
+            <p class="row__lead">Ask in plain text, or match on structure with SYNQL — a small Cypher-inspired query language.</p>
+          </div>
+          <div class="row__body">
+            <div class="row__cmd"><span class="p">$</span> synaptic search --pattern god-class</div>
+            <p>A text query returns a relevance-ranked subgraph (each node scored, best-first). <code>path</code> finds the shortest route between two symbols; <code>explain</code> shows a node and its neighbours.</p>
+            <p>SYNQL matches on kind, visibility, LOC, fan-in/out and variable-length paths with <code>count(...)</code> aggregation, <code>--explain</code>, saved queries, and a library of named patterns — singleton, factory, observer, service-locator, god-class. Not text search.</p>
+            <div class="taglist"><span class="tag">query</span><span class="tag">path</span><span class="tag">explain</span><span class="tag">search</span><span class="tag">--explain</span><span class="tag">--save</span></div>
+          </div>
+        </article>
+
+        <article class="row reveal">
+          <div>
+            <h2 class="row__title">Impact, foresight &amp; speculation</h2>
+            <p class="row__lead">Know what a change touches — then actually run it before you commit to it.</p>
+          </div>
+          <div class="row__body">
+            <div class="row__cmd"><span class="p">$</span> synaptic predict --edit "signature:parse_config"</div>
+            <p><code>affected</code> reports everything that transitively depends on a symbol. <code>predict</code> forecasts a change's blast radius, public APIs at risk, at-risk tests, new cycles, and a risk score — before you write the edit.</p>
+            <p><code>speculate</code> then applies the change in a throwaway git worktree and actually runs the at-risk tests plus a build/type-check, reporting real pass/fail — the ground-truth half of prediction.</p>
+            <div class="taglist"><span class="tag">affected</span><span class="tag">predict</span><span class="tag">speculate</span><span class="tag">--edit</span><span class="tag">--gate</span></div>
+          </div>
+        </article>
+
+        <article class="row reveal">
+          <div>
+            <h2 class="row__title">Dynamic-dispatch awareness</h2>
+            <p class="row__lead">"0 dependents" is never quietly mistaken for "safe to change."</p>
+          </div>
+          <div class="row__body">
+            <div class="row__cmd"><span class="p">$</span> synaptic hazards</div>
+            <p>Event buses (Node EventEmitter, DOM CustomEvent, C# events) and Electron IPC link a publisher to its subscriber through a channel node, so a handler reached only across the bus is not a phantom 0-caller.</p>
+            <p>Reflection and dispatch that can't be resolved statically — by-name lookups, dispatch tables, <code>eval</code>, dynamic import, .NET/Python/JVM reflection — are cataloged, and <code>affected</code> attaches a caveat when a symbol is reachable only dynamically.</p>
+            <div class="taglist"><span class="tag">hazards</span><span class="tag">--kind</span><span class="tag">dynamic_hazards (MCP)</span></div>
+          </div>
+        </article>
+
+        <article class="row reveal">
+          <div>
+            <h2 class="row__title">Safe refactor</h2>
+            <p class="row__lead">Plan a rename, move, or extract — Synaptic never edits your source itself.</p>
+          </div>
+          <div class="row__body">
+            <div class="row__cmd"><span class="p">$</span> synaptic refactor rename &amp;&amp; synaptic refactor verify</div>
+            <p>Each refactor emits a confidence-scored execution plan (<code>plan.json</code> + <code>plan.md</code>) with the exact edit sites, for an AI agent to apply.</p>
+            <p>Afterwards, <code>refactor verify</code> rebuilds and checks the graph held: the definition moved or renamed, no references were lost, and no new cycles were introduced.</p>
+            <div class="taglist"><span class="tag">rename</span><span class="tag">move</span><span class="tag">extract</span><span class="tag">verify</span></div>
+          </div>
+        </article>
+
+        <article class="row reveal">
+          <div>
+            <h2 class="row__title">Time-travel diff</h2>
+            <p class="row__lead">See how the architecture moved between two points in git history.</p>
+          </div>
+          <div class="row__body">
+            <div class="row__cmd"><span class="p">$</span> synaptic diff HEAD~50 HEAD --html</div>
+            <p>Reports added and removed dependencies, removed public APIs, architectural drift, new cycles, and hotspots between two revisions (or <code>--since &lt;date&gt;</code>), as a Markdown or self-contained HTML report.</p>
+            <p>Built graphs are cached per commit SHA, so a repeat diff returns immediately and only the working-tree side is rebuilt.</p>
+            <div class="taglist"><span class="tag">--since</span><span class="tag">--html</span><span class="tag">--scope</span></div>
+          </div>
+        </article>
+
+        <article class="row reveal">
+          <div>
+            <h2 class="row__title">SQL performance &amp; security audit</h2>
+            <p class="row__lead">Audit the database layer over a SQL-aware graph that knows your tables, indexes, and policies.</p>
+          </div>
+          <div class="row__body">
+            <div class="row__cmd"><span class="p">$</span> synaptic sql audit --severity high</div>
+            <p>Flags row-level-security gaps, over-broad grants, likely SQL injection, missing indexes on filter and foreign-key columns, <code>SELECT *</code>, non-sargable predicates, N+1 patterns, and missing primary keys.</p>
+            <p><code>sql advise --query "&lt;sql&gt;"</code> critiques a candidate query before you write it, cross-referenced against the graph's tables, indexes, and RLS policies.</p>
+            <div class="taglist"><span class="tag">audit</span><span class="tag">advise</span><span class="tag">--db-url (live EXPLAIN)</span></div>
+          </div>
+        </article>
+
+        <article class="row reveal">
+          <div>
+            <h2 class="row__title">Federation &amp; workspaces</h2>
+            <p class="row__lead">From one small folder to a fleet of repos federated into a single graph.</p>
+          </div>
+          <div class="row__body">
+            <div class="row__cmd"><span class="p">$</span> synaptic workspace federate</div>
+            <p>A workspace federates many repositories into one graph with real cross-repo edge resolution — export surfaces plus import, tsconfig <code>paths</code>, and module-federation aliases — so architecture stays visible across repo boundaries.</p>
+            <p>The cross-repo <code>global</code> store and <code>merge-graphs</code> compose several graphs into one namespaced view.</p>
+            <div class="taglist"><span class="tag">init</span><span class="tag">add</span><span class="tag">discover</span><span class="tag">federate</span><span class="tag">sync</span></div>
+          </div>
+        </article>
+
+        <article class="row reveal">
+          <div>
+            <h2 class="row__title">MCP server</h2>
+            <p class="row__lead">28 read-only tools, so your assistant queries the graph before it reads files.</p>
+          </div>
+          <div class="row__body">
+            <div class="row__cmd"><span class="p">$</span> synaptic serve --http 127.0.0.1:8765</div>
+            <p>Over stdio or HTTP (protocol 2025-11-25): graph navigation, reverse impact, dynamic-dispatch hazards, PR and working-tree blast radius, change forecasting, predictive test selection, structural search, time-travel diff, plan-only rename, and SQL audit/advise.</p>
+            <p>Plus MCP prompts, argument completions, resource templates and subscriptions, and a small REST surface. <code>synaptic install</code> wires it into Claude or Codex.</p>
+            <div class="taglist"><span class="tag">stdio</span><span class="tag">--http</span><span class="tag">install</span><span class="tag">--allow-exec</span></div>
+          </div>
+        </article>
+
+        <article class="row reveal">
+          <div>
+            <h2 class="row__title">Outputs &amp; visualizations</h2>
+            <p class="row__lead">Machine-readable graphs alongside human-readable reports and visuals.</p>
+          </div>
+          <div class="row__body">
+            <div class="row__cmd"><span class="p">$</span> synaptic export graphml</div>
+            <p>One run writes <code>graph.json</code>, a Markdown <code>GRAPH_REPORT.md</code> (god nodes, surprising connections, import cycles), an interactive 2D explorer, a 3D force graph, and a static SVG layout.</p>
+            <p>Re-emit GraphML, Cypher, DOT, an Obsidian vault, or a Markdown wiki from an existing graph — or push live to Neo4j / FalkorDB.</p>
+            <div class="taglist"><span class="tag">graph.json</span><span class="tag">graph-3d.html</span><span class="tag">graphml</span><span class="tag">cypher</span><span class="tag">obsidian</span></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="section cta">
+      <div class="cta__glow"></div>
+      <div class="wrap">
+        <h2 class="cta__title reveal">Curious how it earns the answer?</h2>
+        <div class="cta__row reveal" data-delay="1">
+          <a class="btn btn--primary" href="why.html">Why it works <span class="arrow">&rarr;</span></a>
+          <a class="btn btn--ghost" href="https://github.com/ColinVaughn/Synaptic/wiki/Commands">Full command reference</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__grid">
+        <div class="foot__brand">
+          <a class="brand" href="index.html" aria-label="Synaptic home">
+            <img class="brand__mark" src="assets/img/logo.svg" alt="" width="28" height="28" />
+            <span class="brand__word">synaptic</span>
+          </a>
+          <p>A persistent, queryable knowledge graph for any codebase. Built in Rust with tree-sitter.</p>
+        </div>
+        <div class="foot__col">
+          <h4>Product</h4>
+          <a href="features.html">Features</a>
+          <a href="why.html">Why it works</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/releases">Releases</a>
+        </div>
+        <div class="foot__col">
+          <h4>Docs</h4>
+          <a href="https://github.com/ColinVaughn/Synaptic/wiki">Wiki</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/wiki/Quickstart">Quickstart</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/wiki/MCP-Server">MCP server</a>
+        </div>
+        <div class="foot__col">
+          <h4>Community</h4>
+          <a href="https://github.com/ColinVaughn/Synaptic">GitHub</a>
+          <a href="https://discord.gg/ytX7R2PbNz">Discord</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/blob/master/LICENSE">License</a>
+        </div>
+      </div>
+      <div class="foot__meta">
+        <span>&copy; <span id="year">2026</span> Synaptic &middot; AGPL-3.0-or-later</span>
+        <span>Not affiliated with any other project. Built with <a href="https://tree-sitter.github.io/">tree-sitter</a>.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js" defer></script>
+</body>
+</html>
