@@ -22,6 +22,10 @@
     <span class="frame__ruler frame__ruler--left"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i></span>
   </div>
 
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9" fill="none" stroke="context-stroke" stroke-width="1.6"/></marker>
+  </defs></svg>
+
   <header class="nav" id="nav">
     <div class="wrap nav__inner">
       <a class="brand" href="index.html" aria-label="Synaptic home">
@@ -89,6 +93,24 @@
                 <div class="row__cmd"><span class="p">$</span> synaptic extract .</div>
                 <p>Parses 30+ languages with tree-sitter, resolves call, import, and reference edges, and clusters the result into communities so the structurally important pieces surface on their own. A code-only corpus never makes a network call.</p>
                 <p>Incremental rebuilds, file watching, and git hooks keep the graph current as you work; an on-disk AST cache makes re-runs fast.</p>
+                <svg class="fig" viewBox="0 0 460 175" role="img" aria-label="Extraction pipeline: source files are parsed by tree-sitter into a graph clustered into communities.">
+                  <text class="t-tag" x="14" y="20">FIG. EXTRACTION</text>
+                  <rect class="box" x="44" y="46" width="38" height="50" rx="1"/>
+                  <rect class="box" x="38" y="52" width="38" height="50" rx="1"/>
+                  <rect class="box-fill" x="32" y="58" width="38" height="50" rx="1"/>
+                  <g class="ln-faint"><line x1="38" y1="70" x2="64" y2="70"/><line x1="38" y1="80" x2="64" y2="80"/><line x1="38" y1="90" x2="58" y2="90"/></g>
+                  <text class="t-dim" x="51" y="128" text-anchor="middle">source</text>
+                  <line class="ln" x1="86" y1="82" x2="114" y2="82" marker-end="url(#ah)"/>
+                  <rect class="box" x="118" y="64" width="92" height="36" rx="1"/>
+                  <text class="t-lbl" x="164" y="86" text-anchor="middle">tree-sitter</text>
+                  <text class="t-dim" x="164" y="128" text-anchor="middle">parse</text>
+                  <line class="ln" x1="212" y1="82" x2="242" y2="82" marker-end="url(#ah)"/>
+                  <ellipse class="ln-faint-d" cx="300" cy="70" rx="34" ry="26"/>
+                  <ellipse class="ln-faint-d" cx="392" cy="92" rx="32" ry="28"/>
+                  <g class="ln-faint"><line x1="288" y1="60" x2="312" y2="58"/><line x1="312" y1="58" x2="300" y2="86"/><line x1="288" y1="60" x2="300" y2="86"/><line x1="300" y1="86" x2="380" y2="82"/><line x1="380" y1="82" x2="402" y2="84"/><line x1="380" y1="82" x2="392" y2="110"/><line x1="402" y1="84" x2="392" y2="110"/></g>
+                  <g class="node"><circle cx="288" cy="60" r="5"/><circle cx="312" cy="58" r="5"/><circle cx="300" cy="86" r="5"/><circle cx="380" cy="82" r="5"/><circle cx="402" cy="84" r="5"/><circle cx="392" cy="110" r="5"/></g>
+                  <text class="t-dim" x="346" y="150" text-anchor="middle">graph + communities</text>
+                </svg>
                 <div class="taglist"><span class="tag">--directed</span><span class="tag">--obsidian</span><span class="tag">--wiki</span><span class="tag">--semantic</span><span class="tag">update</span><span class="tag">watch</span></div>
               </div>
             </article>
@@ -103,6 +125,20 @@
                 <div class="row__cmd"><span class="p">$</span> synaptic search --pattern god-class</div>
                 <p>A text query returns a relevance-ranked subgraph (each node scored, best-first). <code>path</code> finds the shortest route between two symbols; <code>explain</code> shows a node and its neighbours.</p>
                 <p>SYNQL matches on kind, visibility, LOC, fan-in/out and variable-length paths with <code>count(...)</code> aggregation, <code>--explain</code>, saved queries, and a library of named patterns: singleton, factory, observer, service-locator, god-class. Not text search.</p>
+                <svg class="fig" viewBox="0 0 460 180" role="img" aria-label="A query returns a small ranked subgraph slice of the full graph, costing far fewer tokens.">
+                  <text class="t-tag" x="14" y="20">FIG. QUERY</text>
+                  <g class="ln-faint"><line x1="40" y1="60" x2="78" y2="48"/><line x1="78" y1="48" x2="60" y2="92"/><line x1="40" y1="60" x2="60" y2="92"/><line x1="60" y1="92" x2="48" y2="138"/><line x1="78" y1="48" x2="120" y2="64"/><line x1="120" y1="64" x2="110" y2="110"/><line x1="110" y1="110" x2="70" y2="138"/><line x1="120" y1="64" x2="172" y2="92"/><line x1="172" y1="92" x2="206" y2="120"/><line x1="206" y1="120" x2="150" y2="150"/></g>
+                  <g class="node-dim"><circle cx="40" cy="60" r="5"/><circle cx="78" cy="48" r="5"/><circle cx="60" cy="92" r="5"/><circle cx="48" cy="138" r="5"/><circle cx="120" cy="64" r="5"/><circle cx="70" cy="138" r="5"/></g>
+                  <rect class="box-red" x="150" y="74" width="78" height="62" rx="1"/>
+                  <text class="t-red" x="150" y="68">ranked slice</text>
+                  <g class="ln"><line x1="172" y1="92" x2="206" y2="120"/><line x1="172" y1="92" x2="160" y2="126"/><line x1="206" y1="120" x2="160" y2="126"/></g>
+                  <g class="node"><circle cx="172" cy="92" r="5.5"/><circle cx="206" cy="120" r="5.5"/><circle cx="160" cy="126" r="5.5"/></g>
+                  <line class="ln-red" x1="230" y1="105" x2="300" y2="105" marker-end="url(#ah)"/>
+                  <rect class="box" x="306" y="80" width="132" height="50" rx="1"/>
+                  <text class="t-lbl" x="316" y="103">1,950 tokens</text>
+                  <text class="t-dim" x="316" y="119">only the slice</text>
+                  <text class="t-dim" x="40" y="170">a query returns a ranked subgraph, not the whole graph</text>
+                </svg>
                 <div class="taglist"><span class="tag">query</span><span class="tag">path</span><span class="tag">explain</span><span class="tag">search</span><span class="tag">--explain</span><span class="tag">--save</span></div>
               </div>
             </article>
@@ -117,6 +153,23 @@
                 <div class="row__cmd"><span class="p">$</span> synaptic predict --edit "signature:parse_config"</div>
                 <p><code>affected</code> reports everything that transitively depends on a symbol. <code>predict</code> forecasts a change's blast radius, public APIs at risk, at-risk tests, new cycles, and a risk score, before you write the edit.</p>
                 <p><code>speculate</code> then applies the change in a throwaway git worktree and actually runs the at-risk tests plus a build and type-check, reporting real pass/fail: the ground-truth half of prediction.</p>
+                <svg class="fig" viewBox="0 0 460 188" role="img" aria-label="Speculate applies a change in a throwaway git worktree, runs the at-risk tests, and reports real pass and fail.">
+                  <text class="t-tag" x="14" y="20">FIG. SPECULATE</text>
+                  <rect class="box" x="22" y="44" width="92" height="32" rx="1"/>
+                  <text class="t-lbl" x="68" y="64" text-anchor="middle">HEAD (main)</text>
+                  <path class="ln" d="M68 76 L68 108 L146 108" marker-end="url(#ah)"/>
+                  <rect class="ln-red-d" x="150" y="84" width="184" height="92" fill="none"/>
+                  <text class="t-red" x="158" y="102">throwaway worktree</text>
+                  <circle class="datum" cx="172" cy="130" r="7"/>
+                  <text class="t-dim" x="186" y="134">apply edit: parse_config</text>
+                  <text class="t-dim" x="158" y="160">at-risk tests:</text>
+                  <text class="t-lbl" x="250" y="160">4 pass</text>
+                  <text class="t-red" x="294" y="160">1 fail</text>
+                  <line class="ln" x1="334" y1="130" x2="364" y2="130" marker-end="url(#ah)"/>
+                  <text class="t-lbl" x="368" y="126">real</text>
+                  <text class="t-lbl" x="368" y="139">pass/fail</text>
+                  <text class="t-dim" x="368" y="166">then discarded</text>
+                </svg>
                 <div class="taglist"><span class="tag">affected</span><span class="tag">predict</span><span class="tag">speculate</span><span class="tag">--edit</span><span class="tag">--gate</span></div>
               </div>
             </article>
@@ -131,6 +184,19 @@
                 <div class="row__cmd"><span class="p">$</span> synaptic hazards</div>
                 <p>Event buses (Node EventEmitter, DOM CustomEvent, C# events) and Electron IPC link a publisher to its subscriber through a channel node, so a handler reached only across the bus is not a phantom 0-caller.</p>
                 <p>Reflection and dispatch that can't be resolved statically (by-name lookups, dispatch tables, <code>eval</code>, dynamic import, .NET/Python/JVM reflection) are cataloged, and <code>affected</code> attaches a caveat when a symbol is reachable only dynamically.</p>
+                <svg class="fig" viewBox="0 0 460 175" role="img" aria-label="An event bus links a publisher to its subscriber through a channel node, so the handler is not a phantom zero-caller.">
+                  <text class="t-tag" x="14" y="20">FIG. EVENT BUS</text>
+                  <circle class="node" cx="70" cy="64" r="7"/>
+                  <text class="t-lbl" x="70" y="92" text-anchor="middle">emit('evt')</text>
+                  <line class="ln" x1="80" y1="64" x2="166" y2="64" marker-end="url(#ah)"/>
+                  <rect class="box-red" x="170" y="48" width="120" height="32" rx="1"/>
+                  <text class="t-lbl" x="230" y="68" text-anchor="middle">channel: evt</text>
+                  <line class="ln" x1="292" y1="64" x2="378" y2="64" marker-end="url(#ah)"/>
+                  <circle class="node" cx="390" cy="64" r="7"/>
+                  <text class="t-lbl" x="390" y="92" text-anchor="middle">on('evt')</text>
+                  <line class="ln-faint-d" x1="78" y1="120" x2="382" y2="120"/>
+                  <text class="t-red" x="230" y="142" text-anchor="middle">without the channel node, the handler looks like 0 callers</text>
+                </svg>
                 <div class="taglist"><span class="tag">hazards</span><span class="tag">--kind</span><span class="tag">dynamic_hazards (MCP)</span></div>
               </div>
             </article>
@@ -145,6 +211,23 @@
                 <div class="row__cmd"><span class="p">$</span> synaptic refactor rename &amp;&amp; synaptic refactor verify</div>
                 <p>Each refactor emits a confidence-scored execution plan (<code>plan.json</code> + <code>plan.md</code>) with the exact edit sites, for an AI agent to apply.</p>
                 <p>Afterwards, <code>refactor verify</code> rebuilds and checks the graph held: the definition moved or renamed, no references were lost, and no new cycles were introduced.</p>
+                <svg class="fig" viewBox="0 0 460 165" role="img" aria-label="Refactor flow: Synaptic emits a confidence-scored plan, an agent applies the edits, and Synaptic verifies the graph held.">
+                  <text class="t-tag" x="14" y="20">FIG. REFACTOR</text>
+                  <rect class="box" x="18" y="56" width="78" height="32" rx="1"/>
+                  <text class="t-lbl" x="57" y="76" text-anchor="middle">rename</text>
+                  <line class="ln" x1="96" y1="72" x2="124" y2="72" marker-end="url(#ah)"/>
+                  <rect class="box" x="128" y="56" width="92" height="32" rx="1"/>
+                  <text class="t-lbl" x="174" y="76" text-anchor="middle">plan.json</text>
+                  <text class="t-dim" x="174" y="108" text-anchor="middle">edit sites + confidence</text>
+                  <line class="ln" x1="220" y1="72" x2="248" y2="72" marker-end="url(#ah)"/>
+                  <rect class="box" x="252" y="56" width="92" height="32" rx="1"/>
+                  <text class="t-lbl" x="298" y="76" text-anchor="middle">agent edits</text>
+                  <text class="t-red" x="298" y="108" text-anchor="middle">(not Synaptic)</text>
+                  <line class="ln" x1="344" y1="72" x2="372" y2="72" marker-end="url(#ah)"/>
+                  <rect class="box" x="376" y="56" width="70" height="32" rx="1"/>
+                  <text class="t-lbl" x="411" y="76" text-anchor="middle">verify</text>
+                  <text class="t-dim" x="411" y="108" text-anchor="middle">graph held</text>
+                </svg>
                 <div class="taglist"><span class="tag">rename</span><span class="tag">move</span><span class="tag">extract</span><span class="tag">verify</span></div>
               </div>
             </article>
@@ -201,6 +284,22 @@
                 <div class="row__cmd"><span class="p">$</span> synaptic serve --http 127.0.0.1:8765</div>
                 <p>Over stdio or HTTP (protocol 2025-11-25): graph navigation, reverse impact, dynamic-dispatch hazards, PR and working-tree blast radius, change forecasting, predictive test selection, structural search, time-travel diff, plan-only rename, and SQL audit/advise.</p>
                 <p>Plus MCP prompts, argument completions, resource templates and subscriptions, and a small REST surface. <code>synaptic install</code> wires it into Claude or Codex.</p>
+                <svg class="fig" viewBox="0 0 460 175" role="img" aria-label="The MCP server lets an AI assistant query the graph through 28 tools instead of reading raw files.">
+                  <text class="t-tag" x="14" y="20">FIG. MCP</text>
+                  <rect class="box" x="22" y="62" width="96" height="36" rx="1"/>
+                  <text class="t-lbl" x="70" y="84" text-anchor="middle">AI assistant</text>
+                  <path class="ln" d="M118 72 L150 56 L176 56" marker-end="url(#ah)"/>
+                  <rect class="box" x="180" y="40" width="150" height="32" rx="1"/>
+                  <text class="t-lbl" x="255" y="60" text-anchor="middle">synaptic serve &middot; 28 tools</text>
+                  <line class="ln" x1="330" y1="56" x2="360" y2="56" marker-end="url(#ah)"/>
+                  <g class="ln-faint"><line x1="380" y1="48" x2="412" y2="44"/><line x1="412" y1="44" x2="398" y2="74"/><line x1="380" y1="48" x2="398" y2="74"/><line x1="412" y1="44" x2="424" y2="72"/></g>
+                  <g class="node"><circle cx="380" cy="48" r="5"/><circle cx="412" cy="44" r="5"/><circle cx="398" cy="74" r="5"/><circle cx="424" cy="72" r="5"/></g>
+                  <text class="t-dim" x="255" y="90" text-anchor="middle">queries structure</text>
+                  <path class="ln-red-d" d="M118 86 L150 110 L250 110"/>
+                  <text class="t-red" x="150" y="132">grep / read files</text>
+                  <line class="ln-red" x1="196" y1="138" x2="226" y2="122"/>
+                  <line class="ln-red" x1="226" y1="138" x2="196" y2="122"/>
+                </svg>
                 <div class="taglist"><span class="tag">stdio</span><span class="tag">--http</span><span class="tag">install</span><span class="tag">--allow-exec</span></div>
               </div>
             </article>

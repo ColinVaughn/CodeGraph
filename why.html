@@ -22,6 +22,10 @@
     <span class="frame__ruler frame__ruler--left"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i></span>
   </div>
 
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9" fill="none" stroke="context-stroke" stroke-width="1.6"/></marker>
+  </defs></svg>
+
   <header class="nav" id="nav">
     <div class="wrap nav__inner">
       <a class="brand" href="index.html" aria-label="Synaptic home">
@@ -94,6 +98,24 @@
               <p class="part__body">A code-only corpus never makes a network call. The only feature that needs an API key is the optional semantic pass over docs and papers. Everything structural runs locally.</p>
             </article>
           </div>
+          <svg class="fig" viewBox="0 0 460 175" role="img" aria-label="Extraction pipeline: source files are parsed by tree-sitter into a graph clustered into communities.">
+            <text class="t-tag" x="14" y="20">FIG. EXTRACTION</text>
+            <rect class="box" x="44" y="46" width="38" height="50" rx="1"/>
+            <rect class="box" x="38" y="52" width="38" height="50" rx="1"/>
+            <rect class="box-fill" x="32" y="58" width="38" height="50" rx="1"/>
+            <g class="ln-faint"><line x1="38" y1="70" x2="64" y2="70"/><line x1="38" y1="80" x2="64" y2="80"/><line x1="38" y1="90" x2="58" y2="90"/></g>
+            <text class="t-dim" x="51" y="128" text-anchor="middle">source</text>
+            <line class="ln" x1="86" y1="82" x2="114" y2="82" marker-end="url(#ah)"/>
+            <rect class="box" x="118" y="64" width="92" height="36" rx="1"/>
+            <text class="t-lbl" x="164" y="86" text-anchor="middle">tree-sitter</text>
+            <text class="t-dim" x="164" y="128" text-anchor="middle">parse</text>
+            <line class="ln" x1="212" y1="82" x2="242" y2="82" marker-end="url(#ah)"/>
+            <ellipse class="ln-faint-d" cx="300" cy="70" rx="34" ry="26"/>
+            <ellipse class="ln-faint-d" cx="392" cy="92" rx="32" ry="28"/>
+            <g class="ln-faint"><line x1="288" y1="60" x2="312" y2="58"/><line x1="312" y1="58" x2="300" y2="86"/><line x1="288" y1="60" x2="300" y2="86"/><line x1="300" y1="86" x2="380" y2="82"/><line x1="380" y1="82" x2="402" y2="84"/><line x1="380" y1="82" x2="392" y2="110"/><line x1="402" y1="84" x2="392" y2="110"/></g>
+            <g class="node"><circle cx="288" cy="60" r="5"/><circle cx="312" cy="58" r="5"/><circle cx="300" cy="86" r="5"/><circle cx="380" cy="82" r="5"/><circle cx="402" cy="84" r="5"/><circle cx="392" cy="110" r="5"/></g>
+            <text class="t-dim" x="346" y="150" text-anchor="middle">graph + communities</text>
+          </svg>
         </section>
 
         <!-- token economy -->

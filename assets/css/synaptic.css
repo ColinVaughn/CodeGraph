@@ -257,6 +257,27 @@ code, .mono { font-family: var(--f-mono); font-size: 0.9em; }
 @media (max-width: 680px) { .schedule { grid-template-columns: 1fr; } }
 .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 @media (max-width: 760px) { .cards3 { grid-template-columns: 1fr; } }
+
+/* ----- Explanatory figures (schematic diagrams) ------------------------- */
+.fig { width: 100%; height: auto; display: block; border: 1px solid var(--chalk-faint); background: var(--sheet-3); margin: 1.1rem 0; }
+.fig text { font-family: var(--f-mono); }
+.fig .t-tag { fill: var(--chalk-faint); font-size: 9.5px; letter-spacing: 0.14em; }
+.fig .t-lbl { fill: var(--chalk); font-size: 11px; }
+.fig .t-dim { fill: var(--chalk-dim); font-size: 9.5px; }
+.fig .t-red { fill: var(--red); font-size: 10.5px; letter-spacing: 0.03em; }
+.fig .t-amber { fill: var(--amber); font-size: 10px; }
+.fig .ln { stroke: var(--chalk-dim); stroke-width: 1; fill: none; }
+.fig .ln-faint { stroke: var(--chalk-faint); stroke-width: 1; fill: none; }
+.fig .ln-red { stroke: var(--red); stroke-width: 1.1; fill: none; }
+.fig .ln-red-d { stroke: var(--red); stroke-width: 1; fill: none; stroke-dasharray: 4 4; }
+.fig .ln-faint-d { stroke: var(--chalk-faint); stroke-width: 1; fill: none; stroke-dasharray: 4 4; }
+.fig .ln-amber { stroke: var(--amber); stroke-width: 1.2; fill: none; }
+.fig .node { fill: var(--sheet); stroke: var(--chalk); stroke-width: 1.2; }
+.fig .node-dim { fill: var(--sheet); stroke: var(--chalk-faint); stroke-width: 1; }
+.fig .datum { fill: var(--red); stroke: none; }
+.fig .box { fill: var(--sheet-2); stroke: var(--chalk-faint); stroke-width: 1; }
+.fig .box-red { fill: none; stroke: var(--red); stroke-width: 1.2; }
+.fig .box-fill { fill: var(--sheet-2); stroke: var(--chalk); stroke-width: 1; }
 .part { border: 1px solid var(--chalk-faint); background: var(--sheet-2); padding: 1.1rem 1.2rem 1.2rem; display: flex; flex-direction: column; }
 .part__cmd-top { font-family: var(--f-mono); font-size: 0.74rem; color: var(--chalk); margin: 0.6rem 0 0.7rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--chalk-faint); overflow-x: auto; }
 .part__cmd-top .p { color: var(--red); }
