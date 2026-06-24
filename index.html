@@ -5,245 +5,335 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>document.documentElement.classList.add('js');</script>
   <title>Synaptic · your codebase as a queryable knowledge graph</title>
-  <meta name="description" content="Synaptic turns any repo into a persistent, queryable knowledge graph across 30+ languages, then answers structural questions, traces what a change would break, and serves it to your AI assistant over MCP. One Rust binary, no runtime." />
-  <meta name="theme-color" content="#07070e" />
+  <meta name="description" content="Synaptic turns any repo into a persistent, queryable knowledge graph across 30+ languages, then traces exactly what a change would break and serves it to your AI assistant over MCP. One static Rust binary, no runtime." />
+  <meta name="theme-color" content="#0d2a44" />
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Synaptic · your codebase as a queryable knowledge graph" />
-  <meta property="og:description" content="Stop re-reading your code. Query the graph. Reverse impact, change forecasting, safe refactors and SQL audit over a graph of 30+ languages, served to your AI assistant over MCP." />
+  <meta property="og:description" content="A measured drawing of your codebase. Reverse impact, change forecasting, safe refactors and SQL audit over a graph of 30+ languages, served to your AI assistant over MCP." />
   <meta property="og:url" content="https://colinvaughn.github.io/Synaptic/" />
   <meta name="twitter:card" content="summary" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/synaptic.css" />
 </head>
 <body>
 
-  <!-- ===== nav ===== -->
+  <!-- drawing frame: crop ticks + margin rulers -->
+  <div class="frame" aria-hidden="true">
+    <span class="frame__tick frame__tick--tl"></span><span class="frame__tick frame__tick--tr"></span>
+    <span class="frame__tick frame__tick--bl"></span><span class="frame__tick frame__tick--br"></span>
+    <span class="frame__ruler frame__ruler--top"><i>A</i><i>B</i><i>C</i><i>D</i><i>E</i><i>F</i><i>G</i><i>H</i><i>J</i><i>K</i></span>
+    <span class="frame__ruler frame__ruler--left"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i></span>
+  </div>
+
+  <!-- ===== nav (title-block header) ===== -->
   <header class="nav" id="nav">
     <div class="wrap nav__inner">
       <a class="brand" href="index.html" aria-label="Synaptic home">
-        <img class="brand__mark" src="assets/img/logo.svg" alt="" width="28" height="28" />
+        <img class="brand__mark" src="assets/img/logo.svg" alt="" width="26" height="26" />
         <span class="brand__word">synaptic</span>
       </a>
-      <nav class="nav__links" id="nav-links" aria-label="Primary">
-        <a href="features.html">Features</a>
-        <a href="why.html">Why it works</a>
-        <a href="explore.html">Explore</a>
-        <a href="https://github.com/ColinVaughn/Synaptic">GitHub <span class="ext">&#8599;</span></a>
-        <a class="nav__cta" href="https://discord.gg/ytX7R2PbNz">Discord</a>
-      </nav>
-      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav__right">
+        <nav class="nav__links" id="nav-links" aria-label="Primary">
+          <a href="features.html">Features</a>
+          <a href="why.html">Why it works</a>
+          <a href="explore.html">Explore</a>
+          <a href="https://github.com/ColinVaughn/Synaptic">GitHub <span class="ext">&#8599;</span></a>
+          <a class="nav__cta" href="https://discord.gg/ytX7R2PbNz">Discord</a>
+        </nav>
+        <span class="nav__sheet">SHEET 01 / 04</span>
+        <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main>
-    <!-- ===== hero: the living graph ===== -->
-    <section class="hero">
-      <div class="hero__canvas" aria-hidden="true"><img src="assets/img/hero-graph.svg" alt="" class="hero__graph-img" /></div>
-      <div class="hero__veil"></div>
-      <div class="wrap">
-        <div class="hero__inner">
-          <h1 class="display hero__title">Stop re-reading your code.<br />Query the <span class="signal-text">graph</span>.</h1>
-          <p class="lead">Synaptic turns any repo into a persistent knowledge graph across 30+ languages, then answers structural questions, traces what a change would break, and serves it all to your AI assistant over MCP. One static Rust binary. No runtime.</p>
-          <div class="hero__cta">
-            <a class="btn btn--primary" href="#install">Install <span class="arrow">&rarr;</span></a>
-            <a class="btn btn--ghost" href="why.html">How it works</a>
-          </div>
-          <div class="proof-chip">
-            <span><span class="prompt">$</span> synaptic query "auth flow"</span>
-            <span class="sep"></span>
-            <span>&rarr; <strong>1,950 tokens</strong></span>
-            <span class="sep"></span>
-            <span>31&times; fewer</span>
-          </div>
-        </div>
-      </div>
-      <span class="scroll-cue" aria-hidden="true">scroll</span>
-    </section>
+  <div class="sheet">
+    <div class="sheet__grid">
 
-    <!-- ===== the shift ===== -->
-    <section class="band">
-      <div class="wrap section--tight">
-        <p class="band__line reveal">An assistant re-reads thousands of files to answer one structural question. <em>Synaptic answers from a compact graph instead: a fraction of the tokens, none of the dead-end reads.</em></p>
-      </div>
-    </section>
-
-    <!-- ===== token economy ===== -->
-    <section class="section" id="tokens">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <h2 class="h2">Read a small answer,<br />not the whole codebase.</h2>
+      <!-- ===== title-block rail ===== -->
+      <aside class="rail">
+        <div class="rail__block">
+          <div class="rail__row"><span class="k">project</span><span class="v">synaptic</span></div>
+          <div class="rail__row"><span class="k">type</span><span class="v">code graph</span></div>
+          <div class="rail__row"><span class="k">langs</span><span class="v">30+</span></div>
+          <div class="rail__row"><span class="k">runtime</span><span class="v">none</span></div>
+          <div class="rail__row"><span class="k">rev</span><span class="v red">0.3.12</span></div>
         </div>
-        <div class="tokens__grid">
-          <div class="bars reveal" data-inview>
-            <div class="bar__row">
-              <div class="bar__label"><span>Reading the source files</span><b>60,900</b></div>
-              <div class="bar__track"><div class="bar__fill bar__fill--base" style="--w:100%"></div></div>
+        <nav class="rail__index" id="rail-index" aria-label="On this page">
+          <a href="#economy"><span class="n">01</span> Token economy</a>
+          <a href="#capabilities"><span class="n">02</span> Capabilities</a>
+          <a href="#explore"><span class="n">03</span> Live graph</a>
+          <a href="#languages"><span class="n">04</span> Languages</a>
+          <a href="#install"><span class="n">05</span> Install</a>
+        </nav>
+      </aside>
+
+      <main class="sheet__main">
+
+        <!-- ===== hero ===== -->
+        <section class="hero" id="top">
+          <div class="hero__grid">
+            <div>
+              <span class="label">DWG. SYNAPTIC &middot; CODEBASE GRAPH</span>
+              <h1 class="display hero__title">Your codebase,<br />drawn to scale.</h1>
+              <p class="lead hero__lead">Synaptic turns any repo into a persistent, queryable knowledge graph across 30+ languages, then traces exactly what a change would break and serves it to your AI assistant over MCP. One static Rust binary. No runtime.</p>
+              <div class="hero__cta">
+                <a class="btn btn--primary" href="#install">Install <span class="arrow">&rarr;</span></a>
+                <a class="btn btn--ghost" href="why.html">How it works</a>
+              </div>
+              <div class="hero__proof">
+                <span><span style="color:var(--red)">$</span> synaptic query "auth flow"</span>
+                <span>&rarr; <b>1,950 tokens</b></span>
+                <span class="red">31&times; fewer</span>
+              </div>
             </div>
-            <div class="bar__row">
-              <div class="bar__label"><span>One Synaptic query</span><b>1,950</b></div>
-              <div class="bar__track"><div class="bar__fill bar__fill--syn" style="--w:3.2%"></div></div>
+            <div class="draw-panel reveal" data-delay="1">
+              <span class="draw-panel__tag">Detail A</span>
+              <img class="draw-panel__svg" src="assets/img/hero-graph.svg" alt="An engineering-schematic drawing of the Synaptic codebase: open-circle symbol nodes joined by construction lines, with three callouts naming the most-connected symbols." />
+              <span class="draw-panel__rev">REV 0.3.12</span>
             </div>
           </div>
-          <div class="tokens__stat reveal" data-delay="1">
-            <div class="tokens__big">31<span class="x">&times;</span></div>
-            <p class="tokens__cap">fewer tokens to answer one structural question, and the ratio only grows with the size of the repo.</p>
-            <p class="repro">Exact cl100k counts on Synaptic's own source (199 files, 510,966 tokens).<br />27&ndash;38&times; across six questions. <a class="muted" href="why.html#economy" style="border-bottom:1px solid var(--line-2)">See the full breakdown &rarr;</a></p>
+        </section>
+
+        <!-- ===== the shift ===== -->
+        <section class="section section--tight" id="shift">
+          <div class="note reveal">
+            <p class="note__line">An assistant re-reads thousands of files to answer one structural question. <em>Synaptic answers from a compact graph: a fraction of the tokens, none of the dead-end reads.</em></p>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!-- ===== features ===== -->
-    <section class="section" id="features">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <h2 class="h2">More than search.<br />It understands structure.</h2>
-          <p class="lead">Every inferred relationship is tagged <code>EXTRACTED</code>, <code>INFERRED</code>, or <code>AMBIGUOUS</code>, so you can audit what the graph believes.</p>
-        </div>
-        <div class="cards">
-
-          <article class="card reveal">
-            <div class="card__cmd-top"><span class="prompt">$</span> synaptic query "session reaper"</div>
-            <h3 class="h3">Graph &amp; query</h3>
-            <p class="card__body">Relevance-ranked subgraph search, shortest paths, and node explanations over a graph of symbols and relationships in 30+ languages.</p>
-          </article>
-
-          <article class="card reveal" data-delay="1">
-            <div class="card__cmd-top"><span class="prompt">$</span> synaptic affected parse_config</div>
-            <h3 class="h3">Reverse impact &amp; foresight</h3>
-            <p class="card__body">Trace what a change would break before you make it, then <code>predict</code> the blast radius and <code>speculate</code> by actually running the at-risk tests in a throwaway worktree.</p>
-          </article>
-
-          <article class="card reveal" data-delay="2">
-            <div class="card__cmd-top"><span class="prompt">$</span> synaptic hazards</div>
-            <h3 class="h3">Dynamic-dispatch awareness</h3>
-            <p class="card__body">Event buses, Electron IPC, reflection and dispatch tables are modeled or cataloged, so a "0 dependents" answer is never mistaken for "safe to change."</p>
-          </article>
-
-          <article class="card reveal">
-            <div class="card__cmd-top"><span class="prompt">$</span> synaptic refactor rename</div>
-            <h3 class="h3">Safe refactor</h3>
-            <p class="card__body">Rename, move, or extract emits a confidence-scored plan for an agent to apply, then <code>verify</code> rebuilds and checks the graph held. Synaptic never edits your source.</p>
-          </article>
-
-          <article class="card reveal" data-delay="1">
-            <div class="card__cmd-top"><span class="prompt">$</span> synaptic sql audit</div>
-            <h3 class="h3">SQL audit</h3>
-            <p class="card__body">Flags row-level-security gaps, over-broad grants, likely injection, missing indexes, <code>SELECT *</code> and N+1 patterns over a SQL-aware graph that links queries to the tables they touch.</p>
-          </article>
-
-          <article class="card reveal" data-delay="2">
-            <div class="card__cmd-top"><span class="prompt">$</span> synaptic serve</div>
-            <h3 class="h3">MCP server</h3>
-            <p class="card__body">28 read-only tools over stdio or HTTP, so your AI assistant queries the graph (navigation, impact, PR blast radius, SQL audit) before it greps or reads a single file.</p>
-          </article>
-
-        </div>
-        <p class="mt-l reveal"><a class="btn btn--ghost" href="features.html">See everything Synaptic does <span class="arrow">&rarr;</span></a></p>
-      </div>
-    </section>
-
-    <!-- ===== explore teaser ===== -->
-    <section class="section" id="explore-teaser">
-      <div class="wrap center">
-        <h2 class="h2" style="max-width:24ch;margin-inline:auto">This is the real graph.<br />Fly through it.</h2>
-        <p class="lead" style="margin:1.1rem auto 0;max-width:54ch">The graph behind the hero is Synaptic's own codebase: 5,902 symbols and 18,509 relationships, clustered into communities. Open the explorer to search, orbit, and inspect any node in 3D.</p>
-        <p class="mt-l"><a class="btn btn--primary" href="explore.html">Open the 3D explorer <span class="arrow">&rarr;</span></a></p>
-      </div>
-    </section>
-
-    <!-- ===== languages ===== -->
-    <section class="langs">
-      <div class="wrap langs__head reveal">
-        <span class="langs__count">30+ languages, each built &amp; tested in isolation in CI</span>
-      </div>
-      <div class="marquee" aria-label="Supported languages">
-        <div class="marquee__track" id="lang-track-a"></div>
-        <div class="marquee__track" aria-hidden="true" id="lang-track-b"></div>
-      </div>
-    </section>
-
-    <!-- ===== install ===== -->
-    <section class="section" id="install">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <h2 class="h2">One command to a full graph.</h2>
-          <p class="lead">Builds with a stable Rust toolchain, or grab a prebuilt binary for Linux, macOS, or Windows.</p>
-        </div>
-        <div class="install__grid">
-          <div class="terminal reveal" data-copy-src="cargo install --path bin/synaptic">
-            <div class="terminal__bar">
-              <span class="terminal__dot"></span><span class="terminal__dot"></span><span class="terminal__dot"></span>
-              <span class="terminal__title">install</span>
-              <button class="copy-btn" data-copy="cargo install --path bin/synaptic" aria-label="Copy install command">copy</button>
+        <!-- ===== token economy ===== -->
+        <section class="section" id="economy">
+          <div class="section-head reveal">
+            <span class="label">Fig. 2 &middot; Token economy</span>
+            <h2 class="h2">What one query costs.</h2>
+          </div>
+          <div class="tokens__grid">
+            <div class="dim reveal" data-inview>
+              <div class="dim__row">
+                <span class="dim__name">Read the source</span>
+                <div class="dim__track"><div class="dim__fill" style="--w:100%"></div></div>
+                <span class="dim__val">60,900</span>
+              </div>
+              <div class="dim__row">
+                <span class="dim__name">One Synaptic query</span>
+                <div class="dim__track"><div class="dim__fill dim__fill--syn" style="--w:3.2%"></div></div>
+                <span class="dim__val red">1,950</span>
+              </div>
             </div>
-            <div class="terminal__body">
-              <div><span class="c"># from a clone: installs the `synaptic` binary onto PATH</span></div>
-              <div class="cmd-line"><span class="p">$</span><code>cargo install --path bin/synaptic</code></div>
-              <div>&nbsp;</div>
-              <div><span class="c"># ...or build it in-tree</span></div>
-              <div class="cmd-line"><span class="p">$</span><code>cargo build --release</code> <span class="o">&rarr; target/release/synaptic</span></div>
-              <div>&nbsp;</div>
-              <div><span class="c"># prebuilt binaries: Linux &middot; macOS &middot; Windows &rarr; Releases</span></div>
+            <div class="reveal" data-delay="1">
+              <div class="dim__read">
+                <span class="dim__big">31&times;</span>
+                <p class="dim__cap">fewer tokens to answer one structural question. The ratio grows with the size of the repo.</p>
+              </div>
+              <p class="dim__note">Exact cl100k counts on Synaptic's own source (199 files, 510,966 tokens). 27 to 38&times; across six questions. <a href="why.html#economy">See the full breakdown &rarr;</a></p>
             </div>
           </div>
+        </section>
 
-          <div class="steps reveal" data-delay="1">
-            <div class="step">
-              <span class="step__n"></span>
-              <div><code>synaptic extract .</code><div class="step__note">build the graph &rarr; synaptic-out/</div></div>
-              <button class="copy-btn" data-copy="synaptic extract ." aria-label="Copy">copy</button>
-            </div>
-            <div class="step">
-              <span class="step__n"></span>
-              <div><code>synaptic query "authentication flow"</code><div class="step__note">ask the graph a question</div></div>
-              <button class="copy-btn" data-copy="synaptic query &quot;authentication flow&quot;" aria-label="Copy">copy</button>
-            </div>
-            <div class="step">
-              <span class="step__n"></span>
-              <div><code>synaptic affected parse_config</code><div class="step__note">what would changing this break?</div></div>
-              <button class="copy-btn" data-copy="synaptic affected parse_config" aria-label="Copy">copy</button>
-            </div>
-            <div class="step">
-              <span class="step__n"></span>
-              <div><code>synaptic serve</code><div class="step__note">hand the graph to your AI assistant over MCP</div></div>
-              <button class="copy-btn" data-copy="synaptic serve" aria-label="Copy">copy</button>
+        <!-- ===== capabilities (dependency assembly) ===== -->
+        <section class="section" id="capabilities">
+          <div class="section-head reveal">
+            <span class="label">Sheet 02 &middot; Capabilities</span>
+            <h2 class="h2">Six tools over the graph.</h2>
+            <p class="lead">Every inferred relationship is tagged <code>EXTRACTED</code>, <code>INFERRED</code>, or <code>AMBIGUOUS</code>, so you can audit what the graph believes before you trust it.</p>
+          </div>
+
+          <div class="assembly">
+            <!-- datum part: reverse impact -->
+            <article class="datum reveal">
+              <div>
+                <div class="part__head">
+                  <span class="part__balloon">1</span>
+                  <span class="label label--red">Datum part &middot; reverse impact</span>
+                </div>
+                <h3 class="h3">Trace what a change breaks, before you make it.</h3>
+                <div class="part__cmd"><span class="p">$</span> synaptic affected parse_config</div>
+                <p class="datum__body">Every other capability dimensions off this one. <code>affected</code> walks the real call, import, and dispatch edges to bound a change's blast radius; <code>predict</code> forecasts it, and <code>speculate</code> proves it by running the at-risk tests in a throwaway worktree. Synaptic never edits your source.</p>
+              </div>
+              <div>
+                <svg class="draw-panel__svg" viewBox="0 0 300 230" role="img" aria-label="Blast-radius diagram: a red datum part connected by leader lines to five dependent symbols inside a dashed radius." style="border:1px solid var(--chalk-faint);background:var(--sheet-3)">
+                  <text x="14" y="20" fill="#557a93" font-family="ui-monospace,monospace" font-size="9.5" letter-spacing="0.1em">BLAST RADIUS</text>
+                  <circle cx="150" cy="125" r="64" fill="none" stroke="#e0563f" stroke-width="1" stroke-dasharray="4 4"/>
+                  <g stroke="#9fbccc" stroke-width="1">
+                    <line x1="86" y1="125" x2="150" y2="90"/>
+                    <line x1="86" y1="125" x2="205" y2="105"/>
+                    <line x1="86" y1="125" x2="195" y2="160"/>
+                    <line x1="86" y1="125" x2="120" y2="175"/>
+                    <line x1="86" y1="125" x2="120" y2="78"/>
+                  </g>
+                  <g fill="#0d2a44" stroke="#eef4f7" stroke-width="1.2">
+                    <circle cx="150" cy="90" r="6"/><circle cx="205" cy="105" r="6"/>
+                    <circle cx="195" cy="160" r="6"/><circle cx="120" cy="175" r="6"/>
+                    <circle cx="120" cy="78" r="6"/>
+                  </g>
+                  <circle cx="86" cy="125" r="9" fill="#e0563f"/><circle cx="86" cy="125" r="2.6" fill="#0d2a44"/>
+                  <text x="68" y="150" fill="#eef4f7" font-family="ui-monospace,monospace" font-size="10">parse_config</text>
+                  <text x="150" y="212" text-anchor="middle" fill="#e0563f" font-family="ui-monospace,monospace" font-size="10.5" letter-spacing="0.06em">AFFECTED: 5 SYMBOLS</text>
+                </svg>
+              </div>
+            </article>
+
+            <!-- the rest of the assembly -->
+            <div class="schedule">
+              <article class="part reveal">
+                <span class="label">Part 2 &middot; Graph &amp; query</span>
+                <div class="part__cmd-top"><span class="p">$</span> synaptic query "session reaper"</div>
+                <h3 class="h3">Query relationships, not text.</h3>
+                <p class="part__body">Relevance-ranked subgraph search, shortest paths, and node explanations over a graph of symbols and relationships in 30+ languages.</p>
+              </article>
+              <article class="part reveal" data-delay="1">
+                <span class="label">Part 3 &middot; Dynamic dispatch</span>
+                <div class="part__cmd-top"><span class="p">$</span> synaptic hazards</div>
+                <h3 class="h3">A "0 dependents" answer that means it.</h3>
+                <p class="part__body">Event buses, Electron IPC, reflection and dispatch tables are modeled or cataloged, so an empty result is never mistaken for "safe to change."</p>
+              </article>
+              <article class="part reveal">
+                <span class="label">Part 4 &middot; Safe refactor</span>
+                <div class="part__cmd-top"><span class="p">$</span> synaptic refactor rename</div>
+                <h3 class="h3">A plan an agent applies, then verifies.</h3>
+                <p class="part__body">Rename, move, or extract emits a confidence-scored edit plan; <code>verify</code> rebuilds and checks the graph held. The tool proposes, it never edits.</p>
+              </article>
+              <article class="part reveal" data-delay="1">
+                <span class="label">Part 5 &middot; SQL audit</span>
+                <div class="part__cmd-top"><span class="p">$</span> synaptic sql audit</div>
+                <h3 class="h3">Queries linked to the tables they touch.</h3>
+                <p class="part__body">Flags row-level-security gaps, over-broad grants, likely injection, missing indexes, <code>SELECT *</code> and N+1 over a SQL-aware graph.</p>
+              </article>
+              <article class="part reveal">
+                <span class="label">Part 6 &middot; MCP server</span>
+                <div class="part__cmd-top"><span class="p">$</span> synaptic serve</div>
+                <h3 class="h3">The graph, handed to your assistant.</h3>
+                <p class="part__body">28 read-only tools over stdio or HTTP, so your AI assistant queries the graph before it greps or reads a single file.</p>
+              </article>
+              <article class="part reveal" data-delay="1" style="display:flex;align-items:center;justify-content:center;text-align:center">
+                <a class="btn btn--ghost" href="features.html">Full capability schedule <span class="arrow">&rarr;</span></a>
+              </article>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!-- ===== closing cta ===== -->
-    <section class="section cta">
-      <div class="cta__glow"></div>
-      <div class="wrap">
-        <h2 class="cta__title reveal">Work over the graph,<br />not the files.</h2>
-        <div class="cta__row reveal" data-delay="1">
-          <a class="btn btn--primary" href="https://github.com/ColinVaughn/Synaptic">Star on GitHub <span class="arrow">&rarr;</span></a>
-          <a class="btn btn--ghost" href="https://github.com/ColinVaughn/Synaptic/releases">Releases</a>
-          <a class="btn btn--ghost" href="https://discord.gg/ytX7R2PbNz">Join the Discord</a>
-        </div>
-      </div>
-    </section>
-  </main>
+        <!-- ===== explore ===== -->
+        <section class="section" id="explore">
+          <div class="datum reveal" style="background:var(--sheet-2)">
+            <div>
+              <span class="label">Dwg. 3D-01 &middot; the live graph</span>
+              <h2 class="h2" style="margin:0.7rem 0 0.7rem">The same graph, live in 3D.</h2>
+              <p class="lead">The drawing above is Synaptic's own codebase. Open the explorer to search, orbit, and inspect any node in three dimensions, then load the whole graph.</p>
+              <p class="mt-m"><a class="btn btn--primary" href="explore.html">Open the 3D explorer <span class="arrow">&rarr;</span></a></p>
+            </div>
+            <div>
+              <div class="rail__block">
+                <div class="rail__row"><span class="k">nodes</span><span class="v">5,902</span></div>
+                <div class="rail__row"><span class="k">edges</span><span class="v">18,509</span></div>
+                <div class="rail__row"><span class="k">communities</span><span class="v">core 1.2k</span></div>
+                <div class="rail__row"><span class="k">render</span><span class="v red">webgl</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-  <!-- ===== footer ===== -->
+        <!-- ===== languages (bill of materials) ===== -->
+        <section class="section" id="languages">
+          <div class="bom__head reveal">
+            <span class="label">Sheet 03 &middot; Bill of materials</span>
+            <span class="bom__count">30+ languages</span>
+          </div>
+          <div class="bom reveal" id="bom"></div>
+          <p class="dim__note">Each language is built and tested in isolation in CI. Highlighted rows are Tier 1.</p>
+        </section>
+
+        <!-- ===== install ===== -->
+        <section class="section" id="install">
+          <div class="section-head reveal">
+            <span class="label">Sheet 04 &middot; Assembly procedure</span>
+            <h2 class="h2">One command to a full graph.</h2>
+            <p class="lead">Builds with a stable Rust toolchain, or grab a prebuilt binary for Linux, macOS, or Windows.</p>
+          </div>
+          <div class="install__grid">
+            <div class="terminal reveal" data-copy-src="cargo install --path bin/synaptic">
+              <div class="terminal__bar">
+                <span class="terminal__sheet">SH</span>
+                <span class="terminal__title">install</span>
+                <button class="copy-btn" data-copy="cargo install --path bin/synaptic" aria-label="Copy install command">copy</button>
+              </div>
+              <div class="terminal__body">
+                <div><span class="c"># from a clone: installs the `synaptic` binary onto PATH</span></div>
+                <div class="cmd-line"><span class="p">$</span><code>cargo install --path bin/synaptic</code></div>
+                <div>&nbsp;</div>
+                <div><span class="c"># ...or build it in-tree</span></div>
+                <div class="cmd-line"><span class="p">$</span><code>cargo build --release</code> <span class="o">&rarr; target/release/synaptic</span></div>
+                <div>&nbsp;</div>
+                <div><span class="c"># prebuilt binaries: Linux &middot; macOS &middot; Windows &rarr; Releases</span></div>
+              </div>
+            </div>
+
+            <div class="steps reveal" data-delay="1">
+              <div class="step">
+                <span class="step__n"></span>
+                <div><code>synaptic extract .</code><div class="step__note">build the graph &rarr; synaptic-out/</div></div>
+                <button class="copy-btn" data-copy="synaptic extract ." aria-label="Copy">copy</button>
+              </div>
+              <div class="step">
+                <span class="step__n"></span>
+                <div><code>synaptic query "authentication flow"</code><div class="step__note">ask the graph a question</div></div>
+                <button class="copy-btn" data-copy="synaptic query &quot;authentication flow&quot;" aria-label="Copy">copy</button>
+              </div>
+              <div class="step">
+                <span class="step__n"></span>
+                <div><code>synaptic affected parse_config</code><div class="step__note">what would changing this break?</div></div>
+                <button class="copy-btn" data-copy="synaptic affected parse_config" aria-label="Copy">copy</button>
+              </div>
+              <div class="step">
+                <span class="step__n"></span>
+                <div><code>synaptic serve</code><div class="step__note">hand the graph to your AI assistant over MCP</div></div>
+                <button class="copy-btn" data-copy="synaptic serve" aria-label="Copy">copy</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== sign-off ===== -->
+        <section class="section" id="signoff">
+          <div class="signoff reveal">
+            <div class="signoff__bar">
+              <span>Synaptic &middot; sheet 01 of 04 &middot; rev 0.3.12</span>
+              <span class="stamp">Approved for use</span>
+            </div>
+            <div class="signoff__body">
+              <h2 class="signoff__title">Point it at your own repo.</h2>
+              <div class="signoff__row">
+                <a class="btn btn--primary" href="https://github.com/ColinVaughn/Synaptic">Star on GitHub <span class="arrow">&rarr;</span></a>
+                <a class="btn btn--ghost" href="https://github.com/ColinVaughn/Synaptic/releases">Releases</a>
+                <a class="btn btn--ghost" href="https://discord.gg/ytX7R2PbNz">Join the Discord</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== footer (full title block) ===== -->
   <footer class="foot">
     <div class="wrap">
+      <div class="foot__titleblock">
+        <div class="foot__cell"><span class="k">drawn by</span><span class="v">Synaptic</span></div>
+        <div class="foot__cell"><span class="k">built with</span><span class="v">Rust &middot; tree-sitter</span></div>
+        <div class="foot__cell"><span class="k">scale</span><span class="v">30+ languages</span></div>
+        <div class="foot__cell"><span class="k">rev</span><span class="v">0.3.12 &middot; AGPL-3.0</span></div>
+      </div>
       <div class="foot__grid">
         <div class="foot__brand">
           <a class="brand" href="index.html" aria-label="Synaptic home">
-            <img class="brand__mark" src="assets/img/logo.svg" alt="" width="28" height="28" />
+            <img class="brand__mark" src="assets/img/logo.svg" alt="" width="26" height="26" />
             <span class="brand__word">synaptic</span>
           </a>
           <p>A persistent, queryable knowledge graph for any codebase. Built in Rust with tree-sitter.</p>
@@ -277,16 +367,16 @@
 
   <script src="assets/js/site.js" defer></script>
   <script>
-    /* render language chips into both marquee tracks */
+    /* render the language bill-of-materials */
     (function () {
       var langs = ["Python","TypeScript","JavaScript","Rust","Go","Java","C#","Kotlin","Swift","C","C++","Objective-C","Ruby","PHP","Scala","Groovy","Lua","Dart","Elixir","Julia","Zig","Bash","PowerShell","Verilog","Fortran","SQL","JSON","YAML","HCL","Vue","Svelte","Astro"];
-      var accent = {Rust:1,TypeScript:1,Python:1,Go:1,SQL:1};
-      var html = langs.map(function (l) {
-        return '<span class="lang' + (accent[l] ? ' lang--accent' : '') + '">' + l + '</span>';
+      var tier1 = {Rust:1,TypeScript:1,Python:1,Go:1,SQL:1,JavaScript:1};
+      var bom = document.getElementById("bom");
+      if (!bom) return;
+      bom.innerHTML = langs.map(function (l, i) {
+        var n = ("0" + (i + 1)).slice(-2);
+        return '<div class="bom__item' + (tier1[l] ? ' is-tier1' : '') + '"><span class="n">' + n + '</span>' + l + '</div>';
       }).join("");
-      var a = document.getElementById("lang-track-a"), b = document.getElementById("lang-track-b");
-      if (a) a.innerHTML = html;
-      if (b) b.innerHTML = html;
     })();
   </script>
 </body>

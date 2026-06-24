@@ -48,6 +48,28 @@
     revealables.forEach(function (el) { io.observe(el); });
   }
 
+  // --- rail section index (scrollspy) ------------------------------------
+  var indexLinks = [].slice.call(document.querySelectorAll(".rail__index a"));
+  if (indexLinks.length && "IntersectionObserver" in window) {
+    var byId = {};
+    var sections = indexLinks.map(function (a) {
+      var id = a.getAttribute("href").slice(1);
+      byId[id] = a;
+      return document.getElementById(id);
+    }).filter(Boolean);
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = byId[entry.target.id];
+        if (!link) return;
+        if (entry.isIntersecting) {
+          indexLinks.forEach(function (l) { l.classList.remove("is-here"); });
+          link.classList.add("is-here");
+        }
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    sections.forEach(function (s) { spy.observe(s); });
+  }
+
   // --- copy buttons ------------------------------------------------------
   document.addEventListener("click", function (e) {
     var btn = e.target.closest(".copy-btn");

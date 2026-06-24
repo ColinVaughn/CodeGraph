@@ -17,19 +17,22 @@
 
   if (typeof ForceGraph3D !== "function") { showFallback(); return; }
 
-  // palette: communities map to a cyan->violet sweep so it stays on-brand
-  // even with hundreds of clusters; kinds get a fixed in-family set.
+  // schematic palette: a chalk-on-blueprint drawing, not a neon graph.
+  // communities map to tonal bands of steel/chalk; kinds get chalk tones
+  // with red reserved for config (the one annotation ink). The selected node
+  // and its incident edges turn red, a live blast-radius highlight.
+  var CHALK = "#eef4f7", RED = "#e0563f", DIM = "#2e4d63", LINE = "#557a93";
   var KIND_COLORS = {
-    function: "#b794f6", method: "#67e8f9", struct: "#8ab4ff", enum: "#c89bff",
-    trait: "#f29ad6", config: "#6ea8fe", file: "#5d6b93", macro: "#9d7bff",
-    constant: "#7ee0d8", interface: "#8ab4ff", class: "#8ab4ff",
+    function: "#eef4f7", method: "#cfe0ea", struct: "#9fbccc", enum: "#b9cdda",
+    trait: "#88a7ba", config: "#e0563f", file: "#6f93a8", macro: "#c2d4df",
+    constant: "#aac3d2", interface: "#9fbccc", class: "#9fbccc",
   };
-  var DIM = "#2b3050";
   function communityColor(c) {
-    var h = 188 + (Math.abs(c | 0) * 47) % 104; // 188..291
-    return "hsl(" + h + ",68%,63%)";
+    var t = (Math.abs(c | 0) * 47) % 100;     // 0..99, deterministic spread
+    var l = 44 + (t / 99) * 38;               // 44..82 lightness band
+    return "hsl(205," + (14 + (t % 4) * 6) + "%," + l.toFixed(0) + "%)";
   }
-  function kindColor(k) { return KIND_COLORS[k] || "#9aa0b4"; }
+  function kindColor(k) { return KIND_COLORS[k] || "#9fbccc"; }
 
   // state
   var graph = null;
@@ -39,6 +42,7 @@
   var adj = new Map();
   var highlight = new Set();
   var selected = null;
+  var selAdj = new Set();
   var fullLoaded = false;
 
   // auto-rotate (manual orbit; robust across control types)
@@ -59,11 +63,24 @@
   function shortFile(f) { if (!f) return ""; var p = f.replace(/\\/g, "/").split("/"); return p.slice(-2).join("/"); }
 
   function colorForNode(n) {
+    // selection draws a blast radius: datum red, dependents chalk, rest dim
+    if (selected) {
+      if (n.id === selected.id) return RED;
+      if (selAdj.has(n.id)) return CHALK;
+      return DIM;
+    }
     if (highlight.size && !highlight.has(n.id)) return DIM;
-    if (selected && n.id === selected.id) return "#ffffff";
     return mode === "kind" ? kindColor(n.kind) : communityColor(n.community);
   }
-  function applyColors() { if (graph) graph.nodeColor(colorForNode); }
+  function colorForLink(l) {
+    if (selected) {
+      var s = (l.source && l.source.id != null) ? l.source.id : l.source;
+      var t = (l.target && l.target.id != null) ? l.target.id : l.target;
+      if (s === selected.id || t === selected.id) return RED;
+    }
+    return LINE;
+  }
+  function applyColors() { if (graph) { graph.nodeColor(colorForNode); graph.linkColor(colorForLink); } }
 
   function buildIndex(data) {
     byId = new Map();
@@ -102,7 +119,7 @@
   function initGraph(data, perf) {
     try {
       graph = ForceGraph3D({ controlType: "orbit" })(stage)
-        .backgroundColor("#07070e")
+        .backgroundColor("#0d2a44")
         .nodeId("id")
         .nodeVal(function (n) { return 1 + Math.sqrt(n.deg || 1); })
         .nodeColor(colorForNode)
@@ -111,7 +128,7 @@
           return '<div class="g-tip"><b>' + esc(n.label) + "</b><span>" + esc(n.kind) +
             (n.file ? " &middot; " + esc(shortFile(n.file)) : "") + "</span></div>";
         })
-        .linkColor(function () { return "#5b6bb0"; })
+        .linkColor(colorForLink)
         .linkWidth(0)
         .onNodeClick(selectNode)
         .onBackgroundClick(clearSelection)
@@ -129,6 +146,7 @@
 
   function selectNode(n) {
     selected = n;
+    selAdj = new Set(adj.get(n.id) || []);
     focus(n);
     renderInfo(n);
     applyColors();
@@ -136,6 +154,7 @@
   function clearSelection() {
     if (!selected) return;
     selected = null;
+    selAdj = new Set();
     if (info) info.hidden = true;
     applyColors();
   }
@@ -193,7 +212,7 @@
         return '<span class="g-key"><i style="background:' + kindColor(k) + '"></i>' + k + "</span>";
       }).join("");
     } else {
-      el.innerHTML = '<span class="g-key g-key--grad"><i></i>cluster (cyan&hellip;violet)</span>';
+      el.innerHTML = '<span class="g-key g-key--grad"><i></i>community (steel tones)</span>';
     }
   }
 
