@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>document.documentElement.classList.add('js');</script>
-  <title>Explore — Synaptic's own graph in 3D</title>
+  <title>Explore · Synaptic's graph in 3D</title>
   <meta name="description" content="Fly through the real Synaptic knowledge graph in 3D: 5,902 symbols and 18,509 relationships, clustered into communities. The same graph the tool produces, rendered live in your browser." />
   <meta name="theme-color" content="#07070e" />
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
@@ -50,7 +50,7 @@
     </div>
 
     <section class="explore__panel explore__controls" id="g-controls" aria-label="Graph controls" hidden>
-      <span class="eyebrow" style="margin:0 0 .2rem">// the real graph, in 3D</span>
+      <p class="explore__cap">Synaptic's own graph, in 3D</p>
       <input id="g-search" class="g-field" type="search" placeholder="Search symbols&hellip;" autocomplete="off" spellcheck="false" aria-label="Search symbols" />
       <label class="g-row"><span>Color by</span>
         <select id="g-color" class="g-field">
@@ -72,7 +72,7 @@
     <p class="explore__hint" id="g-hint" hidden>drag to orbit &middot; scroll to zoom &middot; click a node</p>
   </main>
 
-  <script src="https://unpkg.com/3d-force-graph@1.80.0/dist/3d-force-graph.min.js"></script>
+  <script src="https://unpkg.com/3d-force-graph@1.80.0/dist/3d-force-graph.min.js" integrity="sha384-Y7bC2PBKu8ujxtvo5+Z61OeGdSVRzFsYWBK4i5dnL/U6aFDTodk61qOUkTfInaxS" crossorigin="anonymous"></script>
   <script src="assets/js/explore.js"></script>
   <script src="assets/js/site.js" defer></script>
 </body>

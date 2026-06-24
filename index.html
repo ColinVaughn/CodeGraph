@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>document.documentElement.classList.add('js');</script>
-  <title>Synaptic — your codebase as a queryable knowledge graph</title>
-  <meta name="description" content="Synaptic turns any repo into a persistent, queryable knowledge graph across 30+ languages — then answers structural questions, traces what a change would break, and serves it to your AI assistant over MCP. One Rust binary, no runtime." />
+  <title>Synaptic · your codebase as a queryable knowledge graph</title>
+  <meta name="description" content="Synaptic turns any repo into a persistent, queryable knowledge graph across 30+ languages, then answers structural questions, traces what a change would break, and serves it to your AI assistant over MCP. One Rust binary, no runtime." />
   <meta name="theme-color" content="#07070e" />
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Synaptic — your codebase as a queryable knowledge graph" />
-  <meta property="og:description" content="Stop re-reading your code. Query the graph. Reverse impact, change forecasting, safe refactors and SQL audit over a graph of 30+ languages — served to your AI assistant over MCP." />
+  <meta property="og:title" content="Synaptic · your codebase as a queryable knowledge graph" />
+  <meta property="og:description" content="Stop re-reading your code. Query the graph. Reverse impact, change forecasting, safe refactors and SQL audit over a graph of 30+ languages, served to your AI assistant over MCP." />
   <meta property="og:url" content="https://colinvaughn.github.io/Synaptic/" />
   <meta name="twitter:card" content="summary" />
 
@@ -51,9 +51,8 @@
       <div class="hero__veil"></div>
       <div class="wrap">
         <div class="hero__inner">
-          <span class="eyebrow">// code as a queryable graph</span>
           <h1 class="display hero__title">Stop re-reading your code.<br />Query the <span class="signal-text">graph</span>.</h1>
-          <p class="lead">Synaptic turns any repo into a persistent knowledge graph across 30+ languages — then answers structural questions, traces what a change would break, and serves it all to your AI assistant over MCP. One static Rust binary. No runtime.</p>
+          <p class="lead">Synaptic turns any repo into a persistent knowledge graph across 30+ languages, then answers structural questions, traces what a change would break, and serves it all to your AI assistant over MCP. One static Rust binary. No runtime.</p>
           <div class="hero__cta">
             <a class="btn btn--primary" href="#install">Install <span class="arrow">&rarr;</span></a>
             <a class="btn btn--ghost" href="why.html">How it works</a>
@@ -73,7 +72,7 @@
     <!-- ===== the shift ===== -->
     <section class="band">
       <div class="wrap section--tight">
-        <p class="band__line reveal">An assistant re-reads thousands of files to answer one structural question. <em>Synaptic answers from a compact graph instead — a fraction of the tokens, none of the dead-end reads.</em></p>
+        <p class="band__line reveal">An assistant re-reads thousands of files to answer one structural question. <em>Synaptic answers from a compact graph instead: a fraction of the tokens, none of the dead-end reads.</em></p>
       </div>
     </section>
 
@@ -81,7 +80,6 @@
     <section class="section" id="tokens">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">// token economy</span>
           <h2 class="h2">Read a small answer,<br />not the whole codebase.</h2>
         </div>
         <div class="tokens__grid">
@@ -96,8 +94,8 @@
             </div>
           </div>
           <div class="tokens__stat reveal" data-delay="1">
-            <div class="tokens__big signal-text">31<span class="x">&times;</span></div>
-            <p class="tokens__cap">fewer tokens to answer one structural question — and the ratio only grows with the size of the repo.</p>
+            <div class="tokens__big">31<span class="x">&times;</span></div>
+            <p class="tokens__cap">fewer tokens to answer one structural question, and the ratio only grows with the size of the repo.</p>
             <p class="repro">Exact cl100k counts on Synaptic's own source (199 files, 510,966 tokens).<br />27&ndash;38&times; across six questions. <a class="muted" href="why.html#economy" style="border-bottom:1px solid var(--line-2)">See the full breakdown &rarr;</a></p>
           </div>
         </div>
@@ -108,52 +106,45 @@
     <section class="section" id="features">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">// what it does</span>
           <h2 class="h2">More than search.<br />It understands structure.</h2>
-          <p class="lead">Every inferred relationship is tagged <code>EXTRACTED</code>, <code>INFERRED</code>, or <code>AMBIGUOUS</code> — so you can audit what the graph believes.</p>
+          <p class="lead">Every inferred relationship is tagged <code>EXTRACTED</code>, <code>INFERRED</code>, or <code>AMBIGUOUS</code>, so you can audit what the graph believes.</p>
         </div>
         <div class="cards">
 
           <article class="card reveal">
-            <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="5" cy="6" r="2.2"/><circle cx="18" cy="5" r="2.2"/><circle cx="12" cy="13" r="2.4"/><circle cx="6" cy="19" r="2.2"/><path d="M7 7l3.4 4.4M16 6l-2.6 5.2M10.4 14.4L7.6 17.6"/></svg>
+            <div class="card__cmd-top"><span class="prompt">$</span> synaptic query "session reaper"</div>
             <h3 class="h3">Graph &amp; query</h3>
             <p class="card__body">Relevance-ranked subgraph search, shortest paths, and node explanations over a graph of symbols and relationships in 30+ languages.</p>
-            <div class="card__cmd"><span class="prompt">$</span> synaptic query "session reaper"</div>
           </article>
 
           <article class="card reveal" data-delay="1">
-            <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 4v6a3 3 0 003 3h8"/><path d="M13 9l4 4-4 4"/><circle cx="5" cy="4" r="1.6" fill="currentColor" stroke="none"/></svg>
+            <div class="card__cmd-top"><span class="prompt">$</span> synaptic affected parse_config</div>
             <h3 class="h3">Reverse impact &amp; foresight</h3>
-            <p class="card__body">Trace what a change would break before you make it — then <code>predict</code> the blast radius and <code>speculate</code> by actually running the at-risk tests in a throwaway worktree.</p>
-            <div class="card__cmd"><span class="prompt">$</span> synaptic affected parse_config</div>
+            <p class="card__body">Trace what a change would break before you make it, then <code>predict</code> the blast radius and <code>speculate</code> by actually running the at-risk tests in a throwaway worktree.</p>
           </article>
 
           <article class="card reveal" data-delay="2">
-            <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="2.4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2"/></svg>
+            <div class="card__cmd-top"><span class="prompt">$</span> synaptic hazards</div>
             <h3 class="h3">Dynamic-dispatch awareness</h3>
-            <p class="card__body">Event buses, Electron IPC, reflection and dispatch tables are modeled or cataloged — so a "0 dependents" answer is never mistaken for "safe to change."</p>
-            <div class="card__cmd"><span class="prompt">$</span> synaptic hazards</div>
+            <p class="card__body">Event buses, Electron IPC, reflection and dispatch tables are modeled or cataloged, so a "0 dependents" answer is never mistaken for "safe to change."</p>
           </article>
 
           <article class="card reveal">
-            <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14.5 4.5a4 4 0 00-5.3 5.3L4 15l1 4 4 1 5.2-5.2a4 4 0 005.3-5.3l-2.7 2.7-2.5-.7-.7-2.5z"/></svg>
+            <div class="card__cmd-top"><span class="prompt">$</span> synaptic refactor rename</div>
             <h3 class="h3">Safe refactor</h3>
-            <p class="card__body">Rename, move, or extract emits a confidence-scored plan for an agent to apply — then <code>verify</code> rebuilds and checks the graph held. Synaptic never edits your source.</p>
-            <div class="card__cmd"><span class="prompt">$</span> synaptic refactor rename</div>
+            <p class="card__body">Rename, move, or extract emits a confidence-scored plan for an agent to apply, then <code>verify</code> rebuilds and checks the graph held. Synaptic never edits your source.</p>
           </article>
 
           <article class="card reveal" data-delay="1">
-            <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"/><path d="M5 5.5v6c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-6"/><path d="M5 11.5v6c0 1.4 3.1 2.6 7 2.6 1.2 0 2.3-.1 3.3-.3"/><path d="M17.5 16.5l1.8 1.8 3-3.2"/></svg>
+            <div class="card__cmd-top"><span class="prompt">$</span> synaptic sql audit</div>
             <h3 class="h3">SQL audit</h3>
             <p class="card__body">Flags row-level-security gaps, over-broad grants, likely injection, missing indexes, <code>SELECT *</code> and N+1 patterns over a SQL-aware graph that links queries to the tables they touch.</p>
-            <div class="card__cmd"><span class="prompt">$</span> synaptic sql audit</div>
           </article>
 
           <article class="card reveal" data-delay="2">
-            <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="1.6"/><rect x="3" y="14" width="18" height="6" rx="1.6"/><path d="M7 7h.01M7 17h.01"/></svg>
+            <div class="card__cmd-top"><span class="prompt">$</span> synaptic serve</div>
             <h3 class="h3">MCP server</h3>
-            <p class="card__body">28 read-only tools over stdio or HTTP, so your AI assistant queries the graph — navigation, impact, PR blast radius, SQL audit — before it greps or reads a single file.</p>
-            <div class="card__cmd"><span class="prompt">$</span> synaptic serve</div>
+            <p class="card__body">28 read-only tools over stdio or HTTP, so your AI assistant queries the graph (navigation, impact, PR blast radius, SQL audit) before it greps or reads a single file.</p>
           </article>
 
         </div>
@@ -164,9 +155,8 @@
     <!-- ===== explore teaser ===== -->
     <section class="section" id="explore-teaser">
       <div class="wrap center">
-        <span class="eyebrow">// not a mockup</span>
-        <h2 class="h2" style="max-width:22ch;margin-inline:auto">This is the real graph. <span class="signal-text">Fly through it.</span></h2>
-        <p class="lead" style="margin:1.1rem auto 0;max-width:54ch">The hero up top isn't decoration. Synaptic's own codebase is 5,902 symbols and 18,509 relationships, clustered into communities. Open the explorer to search, orbit, and inspect any node in 3D.</p>
+        <h2 class="h2" style="max-width:24ch;margin-inline:auto">This is the real graph.<br />Fly through it.</h2>
+        <p class="lead" style="margin:1.1rem auto 0;max-width:54ch">The graph behind the hero is Synaptic's own codebase: 5,902 symbols and 18,509 relationships, clustered into communities. Open the explorer to search, orbit, and inspect any node in 3D.</p>
         <p class="mt-l"><a class="btn btn--primary" href="explore.html">Open the 3D explorer <span class="arrow">&rarr;</span></a></p>
       </div>
     </section>
@@ -174,7 +164,6 @@
     <!-- ===== languages ===== -->
     <section class="langs">
       <div class="wrap langs__head reveal">
-        <span class="eyebrow" style="margin:0">// breadth</span>
         <span class="langs__count">30+ languages, each built &amp; tested in isolation in CI</span>
       </div>
       <div class="marquee" aria-label="Supported languages">
@@ -187,7 +176,6 @@
     <section class="section" id="install">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">// install</span>
           <h2 class="h2">One command to a full graph.</h2>
           <p class="lead">Builds with a stable Rust toolchain, or grab a prebuilt binary for Linux, macOS, or Windows.</p>
         </div>
@@ -199,7 +187,7 @@
               <button class="copy-btn" data-copy="cargo install --path bin/synaptic" aria-label="Copy install command">copy</button>
             </div>
             <div class="terminal__body">
-              <div><span class="c"># from a clone — installs the `synaptic` binary onto PATH</span></div>
+              <div><span class="c"># from a clone: installs the `synaptic` binary onto PATH</span></div>
               <div class="cmd-line"><span class="p">$</span><code>cargo install --path bin/synaptic</code></div>
               <div>&nbsp;</div>
               <div><span class="c"># ...or build it in-tree</span></div>

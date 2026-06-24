@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>document.documentElement.classList.add('js');</script>
-  <title>Why it works — Synaptic</title>
+  <title>Why it works · Synaptic</title>
   <meta name="description" content="How Synaptic earns the answer: how the graph is built, the token-economy measurements, hand-labeled accuracy against a ground-truth corpus, extraction throughput at scale, and honest prediction calibration." />
   <meta name="theme-color" content="#07070e" />
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
@@ -39,9 +39,8 @@
   <main>
     <header class="page-head">
       <div class="wrap">
-        <span class="eyebrow">// earn the answer</span>
         <h1 class="display">Why it works</h1>
-        <p class="lead">Every number here is reproducible. The relationships Synaptic extracts are validated against hand-labeled ground truth — and where the data is unflattering, it stays in.</p>
+        <p class="lead">Every number here is reproducible. The relationships Synaptic extracts are validated against hand-labeled ground truth, and where the data is unflattering, it stays in.</p>
       </div>
     </header>
 
@@ -49,13 +48,12 @@
     <section class="section">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">// how the graph is built</span>
           <h2 class="h2">Structure, computed for you.</h2>
         </div>
         <div class="cards">
           <article class="card reveal">
             <h3 class="h3">Parsed, not guessed</h3>
-            <p class="card__body">tree-sitter parses 30+ languages into concrete syntax, and Synaptic resolves call, import, and reference edges from it — then clusters the graph into communities so god nodes, surprising connections, and import cycles surface on their own.</p>
+            <p class="card__body">tree-sitter parses 30+ languages into concrete syntax, and Synaptic resolves call, import, and reference edges from it, then clusters the graph into communities so god nodes, surprising connections, and import cycles surface on their own.</p>
           </article>
           <article class="card reveal" data-delay="1">
             <h3 class="h3">Confidence you can audit</h3>
@@ -63,7 +61,7 @@
           </article>
           <article class="card reveal" data-delay="2">
             <h3 class="h3">Offline by default</h3>
-            <p class="card__body">A code-only corpus never makes a network call. The only feature that needs an API key is the optional semantic pass over docs and papers — everything structural runs locally.</p>
+            <p class="card__body">A code-only corpus never makes a network call. The only feature that needs an API key is the optional semantic pass over docs and papers. Everything structural runs locally.</p>
           </article>
         </div>
       </div>
@@ -73,7 +71,6 @@
     <section class="section" id="economy">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">// token economy</span>
           <h2 class="h2">Read a small answer, not the whole codebase.</h2>
           <p class="lead">Querying a compact graph costs a fraction of feeding raw files to an LLM. Measured on Synaptic's own source: 199 Rust files, 56,408 lines, 510,966 cl100k tokens.</p>
         </div>
@@ -90,8 +87,8 @@
             </div>
           </div>
           <div class="tokens__stat reveal" data-delay="1">
-            <div class="tokens__big signal-text">31<span class="x">&times;</span></div>
-            <p class="tokens__cap">fewer tokens overall — and a query response stays small no matter how big the repo gets, so the ratio grows with the codebase.</p>
+            <div class="tokens__big">31<span class="x">&times;</span></div>
+            <p class="tokens__cap">fewer tokens overall, and a query response stays small no matter how big the repo gets, so the ratio grows with the codebase.</p>
           </div>
         </div>
 
@@ -110,7 +107,7 @@
             </tbody>
           </table>
         </div>
-        <p class="repro reveal">Exact cl100k_base counts via <code>cargo run -p synaptic-server --example tokcount</code>. The baseline is the unique source files the result's nodes live in — the conservative grep-then-read case. The <code>graph.json</code> index itself is large because it encodes every symbol and edge; you never load it into context, you query it and get back only the slice.</p>
+        <p class="repro reveal">Exact cl100k_base counts via <code>cargo run -p synaptic-server --example tokcount</code>. The baseline is the unique source files the result's nodes live in, the conservative grep-then-read case. The <code>graph.json</code> index itself is large because it encodes every symbol and edge; you never load it into context, you query it and get back only the slice.</p>
       </div>
     </section>
 
@@ -118,9 +115,8 @@
     <section class="section" id="accuracy">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">// accuracy</span>
           <h2 class="h2">Validated against hand-labeled ground truth.</h2>
-          <p class="lead">A corpus of mini-repos whose true call edges, test linkages, blast radii (including distractors that must <em>not</em> be flagged), and cross-language couplings are written out by hand. A preflight fails the run if any labeled symbol doesn't resolve — a dropped node becomes a loud failure, not a quietly smaller denominator.</p>
+          <p class="lead">A corpus of mini-repos whose true call edges, test linkages, blast radii (including distractors that must <em>not</em> be flagged), and cross-language couplings are written out by hand. A preflight fails the run if any labeled symbol doesn't resolve, so a dropped node becomes a loud failure, not a quietly smaller denominator.</p>
         </div>
 
         <div class="table-wrap reveal">
@@ -144,7 +140,7 @@
           <p>Across 7 fixtures / 6 language families / 26 labeled symbols (all resolved): pooled call edges <b>precision 100% / recall 93% / F1 96%</b>; blast-radius <b>recall 100% with 0 distractors leaked</b>; affected-test <b>recall 100%</b> with the one labeled unrelated test correctly not selected; cross-language <b>precision 100% / recall 100%</b>.</p>
         </div>
 
-        <p class="row__lead reveal" style="max-width:62ch">Reading it honestly: the <b style="color:var(--text)">50% recall on Rust is real and expected</b> — Rust call resolution is intra-file, so a module-qualified cross-file call is a true miss. Cross-file reachability is still preserved through <code>imports</code> edges, which is why blast-radius recall stays 100%. The corpus is intentionally small and hand-verified: it validates extraction <em>correctness</em> on representative shapes, not internet-scale coverage.</p>
+        <p class="row__lead reveal" style="max-width:62ch">Reading it honestly: the <b style="color:var(--text)">50% recall on Rust is real and expected</b>. Rust call resolution is intra-file, so a module-qualified cross-file call is a true miss. Cross-file reachability is still preserved through <code>imports</code> edges, which is why blast-radius recall stays 100%. The corpus is intentionally small and hand-verified: it validates extraction <em>correctness</em> on representative shapes, not internet-scale coverage.</p>
       </div>
     </section>
 
@@ -152,7 +148,6 @@
     <section class="section" id="scale">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">// scale</span>
           <h2 class="h2">It scales with content, not against it.</h2>
           <p class="lead">Extraction throughput across real OSS repos, each cloned at a pinned SHA, median of 3 reps. Cold clears the AST cache; warm is cache-hot; incr re-extracts a single file. Measured on Windows / x86_64 / 16 logical CPUs.</p>
         </div>
@@ -178,12 +173,11 @@
     <section class="section section--tight">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">// calibration</span>
           <h2 class="h2">When the metric says we're wrong, we publish it.</h2>
         </div>
-        <p class="row__lead reveal" style="max-width:64ch">The change-forecast layer attaches a confidence to each predicted co-change. <code>synaptic eval calibrate</code> measures whether that confidence is meaningful — a reliability table, a Brier score, the Brier skill score against an always-guess-the-base-rate baseline, and expected calibration error.</p>
+        <p class="row__lead reveal" style="max-width:64ch">The change-forecast layer attaches a confidence to each predicted co-change. <code>synaptic eval calibrate</code> measures whether that confidence is meaningful: a reliability table, a Brier score, the Brier skill score against an always-guess-the-base-rate baseline, and expected calibration error.</p>
         <div class="callout reveal">
-          <p>On this repo's own squash-heavy, synthetic history the skill score is <b>negative</b> — co-change prediction there is worse than guessing the base rate, because squashed commits touch many files at once and inflate apparent co-change. That is the metric working: it refuses to dress up a predictor that is miscalibrated on this history. Confidence is a per-repo property — run it on yours.</p>
+          <p>On this repo's own squash-heavy, synthetic history the skill score is <b>negative</b>: co-change prediction there is worse than guessing the base rate, because squashed commits touch many files at once and inflate apparent co-change. That is the metric working: it refuses to dress up a predictor that is miscalibrated on this history. Confidence is a per-repo property, so run it on yours.</p>
         </div>
       </div>
     </section>

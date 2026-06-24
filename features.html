@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>document.documentElement.classList.add('js');</script>
-  <title>Features — Synaptic</title>
+  <title>Features · Synaptic</title>
   <meta name="description" content="Everything Synaptic does: extraction, structural search (SYNQL), reverse impact and speculative execution, dynamic-dispatch awareness, safe refactor, time-travel diff, SQL audit, federation, and a 28-tool MCP server." />
   <meta name="theme-color" content="#07070e" />
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
@@ -39,9 +39,8 @@
   <main>
     <header class="page-head">
       <div class="wrap">
-        <span class="eyebrow">// the full surface</span>
         <h1 class="display">Everything Synaptic does</h1>
-        <p class="lead">One static Rust binary builds the graph, then answers structural and architectural questions over it — offline by default, with every command also exposed to an AI assistant over MCP.</p>
+        <p class="lead">One static Rust binary builds the graph, then answers structural and architectural questions over it. Offline by default, with every command also exposed to an AI assistant over MCP.</p>
       </div>
     </header>
 
@@ -51,7 +50,7 @@
         <article class="row reveal">
           <div>
             <h2 class="row__title">Extraction &amp; the graph</h2>
-            <p class="row__lead">Turn a folder into a knowledge graph — symbols and relationships, clustered into communities.</p>
+            <p class="row__lead">Turn a folder into a knowledge graph: symbols and relationships, clustered into communities.</p>
           </div>
           <div class="row__body">
             <div class="row__cmd"><span class="p">$</span> synaptic extract .</div>
@@ -64,12 +63,12 @@
         <article class="row reveal">
           <div>
             <h2 class="row__title">Query &amp; structural search</h2>
-            <p class="row__lead">Ask in plain text, or match on structure with SYNQL — a small Cypher-inspired query language.</p>
+            <p class="row__lead">Ask in plain text, or match on structure with SYNQL, a small Cypher-inspired query language.</p>
           </div>
           <div class="row__body">
             <div class="row__cmd"><span class="p">$</span> synaptic search --pattern god-class</div>
             <p>A text query returns a relevance-ranked subgraph (each node scored, best-first). <code>path</code> finds the shortest route between two symbols; <code>explain</code> shows a node and its neighbours.</p>
-            <p>SYNQL matches on kind, visibility, LOC, fan-in/out and variable-length paths with <code>count(...)</code> aggregation, <code>--explain</code>, saved queries, and a library of named patterns — singleton, factory, observer, service-locator, god-class. Not text search.</p>
+            <p>SYNQL matches on kind, visibility, LOC, fan-in/out and variable-length paths with <code>count(...)</code> aggregation, <code>--explain</code>, saved queries, and a library of named patterns: singleton, factory, observer, service-locator, god-class. Not text search.</p>
             <div class="taglist"><span class="tag">query</span><span class="tag">path</span><span class="tag">explain</span><span class="tag">search</span><span class="tag">--explain</span><span class="tag">--save</span></div>
           </div>
         </article>
@@ -77,12 +76,12 @@
         <article class="row reveal">
           <div>
             <h2 class="row__title">Impact, foresight &amp; speculation</h2>
-            <p class="row__lead">Know what a change touches — then actually run it before you commit to it.</p>
+            <p class="row__lead">Know what a change touches, then actually run it before you commit to it.</p>
           </div>
           <div class="row__body">
             <div class="row__cmd"><span class="p">$</span> synaptic predict --edit "signature:parse_config"</div>
-            <p><code>affected</code> reports everything that transitively depends on a symbol. <code>predict</code> forecasts a change's blast radius, public APIs at risk, at-risk tests, new cycles, and a risk score — before you write the edit.</p>
-            <p><code>speculate</code> then applies the change in a throwaway git worktree and actually runs the at-risk tests plus a build/type-check, reporting real pass/fail — the ground-truth half of prediction.</p>
+            <p><code>affected</code> reports everything that transitively depends on a symbol. <code>predict</code> forecasts a change's blast radius, public APIs at risk, at-risk tests, new cycles, and a risk score, before you write the edit.</p>
+            <p><code>speculate</code> then applies the change in a throwaway git worktree and actually runs the at-risk tests plus a build/type-check, reporting real pass/fail: the ground-truth half of prediction.</p>
             <div class="taglist"><span class="tag">affected</span><span class="tag">predict</span><span class="tag">speculate</span><span class="tag">--edit</span><span class="tag">--gate</span></div>
           </div>
         </article>
@@ -95,7 +94,7 @@
           <div class="row__body">
             <div class="row__cmd"><span class="p">$</span> synaptic hazards</div>
             <p>Event buses (Node EventEmitter, DOM CustomEvent, C# events) and Electron IPC link a publisher to its subscriber through a channel node, so a handler reached only across the bus is not a phantom 0-caller.</p>
-            <p>Reflection and dispatch that can't be resolved statically — by-name lookups, dispatch tables, <code>eval</code>, dynamic import, .NET/Python/JVM reflection — are cataloged, and <code>affected</code> attaches a caveat when a symbol is reachable only dynamically.</p>
+            <p>Reflection and dispatch that can't be resolved statically (by-name lookups, dispatch tables, <code>eval</code>, dynamic import, .NET/Python/JVM reflection) are cataloged, and <code>affected</code> attaches a caveat when a symbol is reachable only dynamically.</p>
             <div class="taglist"><span class="tag">hazards</span><span class="tag">--kind</span><span class="tag">dynamic_hazards (MCP)</span></div>
           </div>
         </article>
@@ -103,7 +102,7 @@
         <article class="row reveal">
           <div>
             <h2 class="row__title">Safe refactor</h2>
-            <p class="row__lead">Plan a rename, move, or extract — Synaptic never edits your source itself.</p>
+            <p class="row__lead">Plan a rename, move, or extract. Synaptic never edits your source itself.</p>
           </div>
           <div class="row__body">
             <div class="row__cmd"><span class="p">$</span> synaptic refactor rename &amp;&amp; synaptic refactor verify</div>
@@ -146,7 +145,7 @@
           </div>
           <div class="row__body">
             <div class="row__cmd"><span class="p">$</span> synaptic workspace federate</div>
-            <p>A workspace federates many repositories into one graph with real cross-repo edge resolution — export surfaces plus import, tsconfig <code>paths</code>, and module-federation aliases — so architecture stays visible across repo boundaries.</p>
+            <p>A workspace federates many repositories into one graph with real cross-repo edge resolution (export surfaces plus import, tsconfig <code>paths</code>, and module-federation aliases) so architecture stays visible across repo boundaries.</p>
             <p>The cross-repo <code>global</code> store and <code>merge-graphs</code> compose several graphs into one namespaced view.</p>
             <div class="taglist"><span class="tag">init</span><span class="tag">add</span><span class="tag">discover</span><span class="tag">federate</span><span class="tag">sync</span></div>
           </div>
@@ -173,7 +172,7 @@
           <div class="row__body">
             <div class="row__cmd"><span class="p">$</span> synaptic export graphml</div>
             <p>One run writes <code>graph.json</code>, a Markdown <code>GRAPH_REPORT.md</code> (god nodes, surprising connections, import cycles), an interactive 2D explorer, a 3D force graph, and a static SVG layout.</p>
-            <p>Re-emit GraphML, Cypher, DOT, an Obsidian vault, or a Markdown wiki from an existing graph — or push live to Neo4j / FalkorDB.</p>
+            <p>Re-emit GraphML, Cypher, DOT, an Obsidian vault, or a Markdown wiki from an existing graph, or push live to Neo4j / FalkorDB.</p>
             <div class="taglist"><span class="tag">graph.json</span><span class="tag">graph-3d.html</span><span class="tag">graphml</span><span class="tag">cypher</span><span class="tag">obsidian</span></div>
           </div>
         </article>
