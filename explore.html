@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>document.documentElement.classList.add('js');</script>
+  <title>Explore — Synaptic's own graph in 3D</title>
+  <meta name="description" content="Fly through the real Synaptic knowledge graph in 3D: 5,902 symbols and 18,509 relationships, clustered into communities. The same graph the tool produces, rendered live in your browser." />
+  <meta name="theme-color" content="#07070e" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/synaptic.css" />
+</head>
+<body class="is-explore">
+
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a class="brand" href="index.html" aria-label="Synaptic home">
+        <img class="brand__mark" src="assets/img/logo.svg" alt="" width="28" height="28" />
+        <span class="brand__word">synaptic</span>
+      </a>
+      <nav class="nav__links" id="nav-links" aria-label="Primary">
+        <a href="features.html">Features</a>
+        <a href="why.html">Why it works</a>
+        <a href="explore.html" aria-current="page">Explore</a>
+        <a href="https://github.com/ColinVaughn/Synaptic">GitHub <span class="ext">&#8599;</span></a>
+        <a class="nav__cta" href="https://discord.gg/ytX7R2PbNz">Discord</a>
+      </nav>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="explore">
+    <div id="graph" class="explore__stage">
+      <div class="explore__loading" id="g-loading">
+        <span class="explore__spinner" aria-hidden="true"></span>
+        <span>Building the graph&hellip;</span>
+      </div>
+      <div class="explore__fallback" id="g-fallback" hidden>
+        <h2 class="h3">3D needs WebGL</h2>
+        <p class="muted">Your browser couldn't start a WebGL context. Try a desktop browser, or read the <a href="why.html#economy">graph by the numbers</a> instead.</p>
+      </div>
+    </div>
+
+    <section class="explore__panel explore__controls" id="g-controls" aria-label="Graph controls" hidden>
+      <span class="eyebrow" style="margin:0 0 .2rem">// the real graph, in 3D</span>
+      <input id="g-search" class="g-field" type="search" placeholder="Search symbols&hellip;" autocomplete="off" spellcheck="false" aria-label="Search symbols" />
+      <label class="g-row"><span>Color by</span>
+        <select id="g-color" class="g-field">
+          <option value="community">Community</option>
+          <option value="kind">Kind</option>
+        </select>
+      </label>
+      <div class="g-buttons">
+        <button id="g-rotate" class="g-btn" aria-pressed="false">Auto-rotate</button>
+        <button id="g-reset" class="g-btn">Reset view</button>
+      </div>
+      <button id="g-loadfull" class="g-btn g-btn--wide">Load full graph</button>
+      <p class="explore__stats" id="g-stats"></p>
+      <div class="explore__legend" id="g-legend"></div>
+    </section>
+
+    <aside class="explore__panel explore__info" id="g-info" hidden aria-live="polite"></aside>
+
+    <p class="explore__hint" id="g-hint" hidden>drag to orbit &middot; scroll to zoom &middot; click a node</p>
+  </main>
+
+  <script src="https://unpkg.com/3d-force-graph@1.80.0/dist/3d-force-graph.min.js"></script>
+  <script src="assets/js/explore.js"></script>
+  <script src="assets/js/site.js" defer></script>
+</body>
+</html>
