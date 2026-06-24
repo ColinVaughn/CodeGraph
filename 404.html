@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>document.documentElement.classList.add('js');</script>
+  <title>404 · unresolved reference · Synaptic</title>
+  <meta name="description" content="No node resolves to that path. The page you requested was moved, renamed, or never extracted." />
+  <meta name="theme-color" content="#0d2a44" />
+  <meta name="robots" content="noindex" />
+  <!-- 404.html is served for any missing path at any depth, so links and
+       assets use absolute /Synaptic/ paths (relative paths break on deep URLs).
+       If a custom apex domain is added later, change /Synaptic/ to /. -->
+  <link rel="icon" href="/Synaptic/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/Synaptic/assets/css/synaptic.css" />
+</head>
+<body>
+
+  <div class="frame" aria-hidden="true">
+    <span class="frame__tick frame__tick--tl"></span><span class="frame__tick frame__tick--tr"></span>
+    <span class="frame__tick frame__tick--bl"></span><span class="frame__tick frame__tick--br"></span>
+    <span class="frame__ruler frame__ruler--top"><i>A</i><i>B</i><i>C</i><i>D</i><i>E</i><i>F</i><i>G</i><i>H</i><i>J</i><i>K</i></span>
+    <span class="frame__ruler frame__ruler--left"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i></span>
+  </div>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a class="brand" href="/Synaptic/index.html" aria-label="Synaptic home">
+        <img class="brand__mark" src="/Synaptic/assets/img/logo.svg" alt="" width="26" height="26" />
+        <span class="brand__word">synaptic</span>
+      </a>
+      <div class="nav__right">
+        <nav class="nav__links" id="nav-links" aria-label="Primary">
+          <a href="/Synaptic/features.html">Features</a>
+          <a href="/Synaptic/why.html">Why it works</a>
+          <a href="/Synaptic/explore.html">Explore</a>
+          <a href="https://github.com/ColinVaughn/Synaptic">GitHub <span class="ext">&#8599;</span></a>
+          <a class="nav__cta" href="https://discord.gg/ytX7R2PbNz">Discord</a>
+        </nav>
+        <span class="nav__sheet">ERR 404</span>
+        <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="sheet">
+    <section class="err">
+      <div class="err__grid">
+        <div>
+          <span class="label label--red">ERR. 404 &middot; Unresolved reference</span>
+          <div class="err__code">404</div>
+          <h1 class="h2 err__title">This sheet isn't in the graph.</h1>
+          <p class="lead">No node resolves to that path. The page you asked for was moved, renamed, or never extracted. Jump back to a known symbol.</p>
+          <div class="err__cta">
+            <a class="btn btn--primary" href="/Synaptic/index.html">Back to home <span class="arrow">&rarr;</span></a>
+            <a class="btn btn--ghost" href="/Synaptic/explore.html">Open the explorer</a>
+          </div>
+        </div>
+        <div>
+          <svg class="fig" viewBox="0 0 360 300" role="img" aria-label="An unresolved-reference diagram: several known nodes whose edges point at a missing node, drawn as an empty red dashed circle.">
+            <text class="t-tag" x="16" y="26">FIG. 404 &middot; UNRESOLVED</text>
+            <g class="ln">
+              <line x1="74" y1="108" x2="214" y2="150"/>
+              <line x1="120" y1="178" x2="208" y2="164"/>
+              <line x1="82" y1="234" x2="210" y2="178"/>
+              <line x1="166" y1="250" x2="222" y2="192"/>
+            </g>
+            <g class="ln-faint">
+              <line x1="74" y1="108" x2="120" y2="178"/>
+              <line x1="120" y1="178" x2="82" y2="234"/>
+              <line x1="120" y1="178" x2="166" y2="250"/>
+            </g>
+            <g class="node">
+              <circle cx="74" cy="108" r="6"/><circle cx="120" cy="178" r="6"/>
+              <circle cx="82" cy="234" r="6"/><circle cx="166" cy="250" r="6"/>
+            </g>
+            <circle class="ln-red-d" cx="244" cy="162" r="36" fill="none"/>
+            <text class="t-red" x="244" y="176" text-anchor="middle" font-size="40" font-weight="600">?</text>
+            <text class="t-red" x="180" y="288" text-anchor="middle">NODE NOT FOUND</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__titleblock">
+        <div class="foot__cell"><span class="k">drawn by</span><span class="v">Synaptic</span></div>
+        <div class="foot__cell"><span class="k">built with</span><span class="v">Rust &middot; tree-sitter</span></div>
+        <div class="foot__cell"><span class="k">scale</span><span class="v">30+ languages</span></div>
+        <div class="foot__cell"><span class="k">error</span><span class="v">404 &middot; not resolved</span></div>
+      </div>
+      <div class="foot__grid">
+        <div class="foot__brand">
+          <a class="brand" href="/Synaptic/index.html" aria-label="Synaptic home">
+            <img class="brand__mark" src="/Synaptic/assets/img/logo.svg" alt="" width="26" height="26" />
+            <span class="brand__word">synaptic</span>
+          </a>
+          <p>A persistent, queryable knowledge graph for any codebase. Built in Rust with tree-sitter.</p>
+        </div>
+        <div class="foot__col">
+          <h4>Product</h4>
+          <a href="/Synaptic/features.html">Features</a>
+          <a href="/Synaptic/why.html">Why it works</a>
+          <a href="/Synaptic/explore.html">Explore in 3D</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/releases">Releases</a>
+        </div>
+        <div class="foot__col">
+          <h4>Docs</h4>
+          <a href="https://github.com/ColinVaughn/Synaptic/wiki">Wiki</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/wiki/Quickstart">Quickstart</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/wiki/MCP-Server">MCP server</a>
+        </div>
+        <div class="foot__col">
+          <h4>Community</h4>
+          <a href="https://github.com/ColinVaughn/Synaptic">GitHub</a>
+          <a href="https://discord.gg/ytX7R2PbNz">Discord</a>
+          <a href="https://github.com/ColinVaughn/Synaptic/blob/master/LICENSE">License</a>
+        </div>
+      </div>
+      <div class="foot__meta">
+        <span>&copy; <span id="year">2026</span> Synaptic &middot; AGPL-3.0-or-later</span>
+        <span>Not affiliated with any other project. Built with <a href="https://tree-sitter.github.io/">tree-sitter</a>.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/Synaptic/assets/js/site.js" defer></script>
+</body>
+</html>

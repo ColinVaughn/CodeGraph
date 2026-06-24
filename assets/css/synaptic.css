@@ -391,6 +391,15 @@ table.data td .repo { font-family: var(--f-mono); color: var(--chalk); }
 .page-head .lead { margin-top: 1rem; max-width: 54ch; }
 .utilities { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.6rem; }
 
+/* ----- 404 (unresolved reference) -------------------------------------- */
+.err { padding-block: clamp(2.4rem, 6vw, 5.5rem); }
+.err__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr); gap: clamp(1.6rem, 4vw, 3.8rem); align-items: center; }
+@media (max-width: 860px) { .err__grid { grid-template-columns: 1fr; gap: 2rem; } }
+.err__code { font-family: var(--f-display); font-weight: 700; font-size: clamp(4.2rem, 2rem + 11vw, 9.5rem); line-height: 0.86; letter-spacing: 0.01em; color: var(--red); margin: 0.6rem 0 0.4rem; }
+.err__title { margin-bottom: 1rem; }
+.err__cta { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.7rem; }
+@media (max-width: 460px) { .err__cta .btn { flex: 1 1 auto; justify-content: center; } }
+
 /* small helpers */
 .center { text-align: center; }
 .mt-s { margin-top: 0.8rem; } .mt-m { margin-top: 1.6rem; } .mt-l { margin-top: 2.4rem; }
