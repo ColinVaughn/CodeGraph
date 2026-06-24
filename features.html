@@ -242,6 +242,27 @@
                 <div class="row__cmd"><span class="p">$</span> synaptic diff HEAD~50 HEAD --html</div>
                 <p>Reports added and removed dependencies, removed public APIs, architectural drift, new cycles, and hotspots between two revisions (or <code>--since &lt;date&gt;</code>), as a Markdown or self-contained HTML report.</p>
                 <p>Built graphs are cached per commit SHA, so a repeat diff returns immediately and only the working-tree side is rebuilt.</p>
+                <svg class="fig" viewBox="0 0 460 175" role="img" aria-label="Time-travel diff: the graph between two revisions, with an added dependency in amber and a removed dependency in red.">
+                  <text class="t-tag" x="14" y="20">FIG. DIFF</text>
+                  <text class="t-dim" x="446" y="20" text-anchor="end">HEAD~50  to  HEAD</text>
+                  <g class="ln-faint">
+                    <line x1="140" y1="58" x2="210" y2="50"/><line x1="140" y1="58" x2="122" y2="100"/>
+                    <line x1="122" y1="100" x2="196" y2="106"/><line x1="196" y1="106" x2="232" y2="148"/>
+                    <line x1="264" y1="94" x2="232" y2="148"/><line x1="210" y1="50" x2="264" y2="94"/>
+                  </g>
+                  <line class="ln-red-d" x1="140" y1="58" x2="196" y2="106"/>
+                  <text class="t-red" x="160" y="86" font-size="14">&#8722;</text>
+                  <line class="ln-amber" x1="210" y1="50" x2="196" y2="106"/>
+                  <text class="t-amber" x="212" y="82" font-size="14">+</text>
+                  <g class="node">
+                    <circle cx="140" cy="58" r="5.5"/><circle cx="210" cy="50" r="5.5"/><circle cx="122" cy="100" r="5.5"/>
+                    <circle cx="196" cy="106" r="5.5"/><circle cx="264" cy="94" r="5.5"/><circle cx="232" cy="148" r="5.5"/>
+                  </g>
+                  <line class="ln-amber" x1="316" y1="116" x2="338" y2="116"/>
+                  <text class="t-dim" x="344" y="120">added dependency</text>
+                  <line class="ln-red-d" x1="316" y1="140" x2="338" y2="140"/>
+                  <text class="t-dim" x="344" y="144">removed dependency</text>
+                </svg>
                 <div class="taglist"><span class="tag">--since</span><span class="tag">--html</span><span class="tag">--scope</span></div>
               </div>
             </article>
@@ -256,6 +277,23 @@
                 <div class="row__cmd"><span class="p">$</span> synaptic sql audit --severity high</div>
                 <p>Flags row-level-security gaps, over-broad grants, likely SQL injection, missing indexes on filter and foreign-key columns, <code>SELECT *</code>, non-sargable predicates, N+1 patterns, and missing primary keys.</p>
                 <p><code>sql advise --query "&lt;sql&gt;"</code> critiques a candidate query before you write it, cross-referenced against the graph's tables, indexes, and RLS policies.</p>
+                <svg class="fig" viewBox="0 0 460 178" role="img" aria-label="SQL audit: a query linked to the tables it touches, flagging a missing index and a row-level-security gap.">
+                  <text class="t-tag" x="14" y="20">FIG. SQL AUDIT</text>
+                  <rect class="box" x="24" y="74" width="118" height="42" rx="1"/>
+                  <text class="t-lbl" x="83" y="92" text-anchor="middle">SELECT *</text>
+                  <text class="t-dim" x="83" y="107" text-anchor="middle">query</text>
+                  <line class="ln" x1="144" y1="88" x2="292" y2="58" marker-end="url(#ah)"/>
+                  <line class="ln" x1="144" y1="102" x2="292" y2="128" marker-end="url(#ah)"/>
+                  <path class="box" d="M300 50 L300 82 A30 8 0 0 0 360 82 L360 50"/>
+                  <ellipse class="box" cx="330" cy="50" rx="30" ry="8"/>
+                  <text class="t-lbl" x="330" y="72" text-anchor="middle">users</text>
+                  <text class="t-red" x="374" y="58">! no index</text>
+                  <path class="box" d="M300 120 L300 152 A30 8 0 0 0 360 152 L360 120"/>
+                  <ellipse class="box" cx="330" cy="120" rx="30" ry="8"/>
+                  <text class="t-lbl" x="330" y="142" text-anchor="middle">sessions</text>
+                  <text class="t-red" x="374" y="128">! RLS gap</text>
+                  <text class="t-dim" x="24" y="160">queries linked to the tables they touch</text>
+                </svg>
                 <div class="taglist"><span class="tag">audit</span><span class="tag">advise</span><span class="tag">--db-url (live EXPLAIN)</span></div>
               </div>
             </article>
@@ -270,6 +308,25 @@
                 <div class="row__cmd"><span class="p">$</span> synaptic workspace federate</div>
                 <p>A workspace federates many repositories into one graph with real cross-repo edge resolution (export surfaces plus import, tsconfig <code>paths</code>, and module-federation aliases) so architecture stays visible across repo boundaries.</p>
                 <p>The cross-repo <code>global</code> store and <code>merge-graphs</code> compose several graphs into one namespaced view.</p>
+                <svg class="fig" viewBox="0 0 460 175" role="img" aria-label="Federation: three repositories joined by red cross-repo edges into one graph.">
+                  <text class="t-tag" x="14" y="20">FIG. FEDERATION</text>
+                  <rect class="ln-faint-d" x="20" y="44" width="118" height="86" fill="none"/>
+                  <text class="t-dim" x="28" y="60">repo-a</text>
+                  <rect class="ln-faint-d" x="170" y="44" width="118" height="86" fill="none"/>
+                  <text class="t-dim" x="178" y="60">repo-b</text>
+                  <rect class="ln-faint-d" x="320" y="44" width="120" height="86" fill="none"/>
+                  <text class="t-dim" x="328" y="60">repo-c</text>
+                  <g class="ln-faint">
+                    <line x1="50" y1="86" x2="104" y2="112"/><line x1="200" y1="86" x2="254" y2="112"/><line x1="352" y1="86" x2="404" y2="112"/>
+                  </g>
+                  <line class="ln-red" x1="106" y1="110" x2="198" y2="88" marker-end="url(#ah)"/>
+                  <line class="ln-red" x1="256" y1="110" x2="350" y2="88" marker-end="url(#ah)"/>
+                  <g class="node">
+                    <circle cx="50" cy="86" r="6"/><circle cx="104" cy="112" r="6"/><circle cx="200" cy="86" r="6"/>
+                    <circle cx="254" cy="112" r="6"/><circle cx="352" cy="86" r="6"/><circle cx="404" cy="112" r="6"/>
+                  </g>
+                  <text class="t-red" x="230" y="158" text-anchor="middle">cross-repo edges into one graph</text>
+                </svg>
                 <div class="taglist"><span class="tag">init</span><span class="tag">add</span><span class="tag">discover</span><span class="tag">federate</span><span class="tag">sync</span></div>
               </div>
             </article>
@@ -314,6 +371,19 @@
                 <div class="row__cmd"><span class="p">$</span> synaptic export graphml</div>
                 <p>One run writes <code>graph.json</code>, a Markdown <code>GRAPH_REPORT.md</code> (god nodes, surprising connections, import cycles), an interactive 2D explorer, a 3D force graph, and a static SVG layout.</p>
                 <p>Re-emit GraphML, Cypher, DOT, an Obsidian vault, or a Markdown wiki from an existing graph, or push live to Neo4j / FalkorDB.</p>
+                <svg class="fig" viewBox="0 0 460 175" role="img" aria-label="Outputs: one graph re-emitted as graph.json, GraphML, Cypher, DOT, an Obsidian vault, and 2D/3D viewers.">
+                  <text class="t-tag" x="14" y="20">FIG. OUTPUTS</text>
+                  <g class="ln-faint"><line x1="46" y1="70" x2="88" y2="56"/><line x1="88" y1="56" x2="78" y2="104"/><line x1="46" y1="70" x2="78" y2="104"/><line x1="88" y1="56" x2="118" y2="92"/></g>
+                  <g class="node"><circle cx="46" cy="70" r="5"/><circle cx="88" cy="56" r="5"/><circle cx="78" cy="104" r="5"/><circle cx="118" cy="92" r="5"/></g>
+                  <text class="t-dim" x="78" y="132" text-anchor="middle">one graph</text>
+                  <line class="ln" x1="124" y1="86" x2="184" y2="86" marker-end="url(#ah)"/>
+                  <rect class="box" x="190" y="40" width="120" height="28" rx="1"/><text class="t-lbl" x="250" y="58" text-anchor="middle">graph.json</text>
+                  <rect class="box" x="320" y="40" width="120" height="28" rx="1"/><text class="t-lbl" x="380" y="58" text-anchor="middle">GraphML</text>
+                  <rect class="box" x="190" y="78" width="120" height="28" rx="1"/><text class="t-lbl" x="250" y="96" text-anchor="middle">Cypher</text>
+                  <rect class="box" x="320" y="78" width="120" height="28" rx="1"/><text class="t-lbl" x="380" y="96" text-anchor="middle">DOT</text>
+                  <rect class="box" x="190" y="116" width="120" height="28" rx="1"/><text class="t-lbl" x="250" y="134" text-anchor="middle">Obsidian</text>
+                  <rect class="box" x="320" y="116" width="120" height="28" rx="1"/><text class="t-lbl" x="380" y="134" text-anchor="middle">2D / 3D viewers</text>
+                </svg>
                 <div class="taglist"><span class="tag">graph.json</span><span class="tag">graph-3d.html</span><span class="tag">graphml</span><span class="tag">cypher</span><span class="tag">obsidian</span></div>
               </div>
             </article>
